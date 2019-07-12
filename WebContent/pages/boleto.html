@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CliqueMédicos</title>
+
+    <!-- Principal CSS do Bootstrap -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#BBD2D9">
+
+    <!---->
+    <link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../resources/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <link href="../resources/css/geral.css" rel="stylesheet">
+
+
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+
+    <!---->
+    <link rel="apple-touch-icon" href="../resources/images/favico/apple-icon-152x152.png">
+
+    <!---->
+    <link rel="icon" type="image/png" sizes="32x32" href="../resources/images/favico/favicon-16x16.png">
+
+    <!---->
+    <meta name="msapplication-TileImage" content="../resources/images/favico/ms-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#BBD2D9">
+
+    <link href="../resources/css/vcloak.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+
+<body class="text-center bg">
+<!-- -- -->
+<div id="menuSuperior">
+    <header-cm
+            caminho-relativo="../"
+            pagina-privada="true">
+    </header-cm>
+</div>
+<!-- -- -->
+<div id="appCompra" v-cloak>
+    <b-container>
+        <h2>Boletos</h2>
+    </b-container>
+</div>
+<footer id="rodape" class="">
+    <footer-cm></footer-cm>
+</footer>
+<script src="../resources/js/utils.js"></script>
+<script src="../resources/js/loaderContent.js"></script>
+<script src="../resources/js/libs/vue.min.js"></script>
+<script src="../resources/js/libs/bootstrap-vue.js"></script>
+<script src="../resources/js/libs/axios.min.js"></script>
+<script src="../resources/js/libs/httpVueLoader.js"></script>
+<script src="../resources/js/libs/rxp-hpp.js"></script>
+<script src="../resources/js/libs/vue-the-mask.js"></script>
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+<script src="../resources/js/compra.js"></script>
+
+</body>
+
+</html>

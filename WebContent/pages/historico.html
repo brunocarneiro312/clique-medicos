@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="../manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="../resources/css/bootstrap.css" rel="stylesheet">
+	<link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="../resources/css/all.css" rel="stylesheet">
+	<link href="../resources/css/historico.css" rel="stylesheet">
+    <link href="../resources/css/vcloak.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="../resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="../resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+    	.separador {
+	        margin-top: 5px;
+	    }
+	    .separador hr{
+	        margin-top: 0px;
+	    }
+		.calendarioAssociado{
+			max-width:300px;
+		}
+		.vc-popover-caret {
+		    content: "";
+		    position: absolute;
+		    display: block;
+		    width: 12px;
+		    height: 12px;
+		    border-top: inherit;
+		    border-left: inherit;
+		    background: inherit;
+		    z-index: -1;
+	    }
+	    .tooltip-inner {
+	        max-width: 200px;
+	        padding: 0.25rem 0.5rem;
+	        color: #BBD2D9;
+	        text-align: center;
+	        background-color: #FFF;
+	        border-radius: 0.25rem;
+	    }
+		.card-body {
+	        padding: 0.25rem;
+	        text-align: left;
+	        color: #008288;
+	    }
+	    .card-header, .card-footer {
+	        /* background: #00898f;
+	        border-color: #1d6981; */
+	        font-size: 1.5rem;
+	        line-height: 1.0;
+	        text-align: left;
+	        color: #fff;
+	    }
+	    .card-footer {
+	        font-size: 1.2rem;
+	        line-height: 1.0;
+	        font-weight: 400;
+		}
+		/* .btn-warning {
+		color: #212529;
+		background-color: #BBD2D9 !important;
+		border-color: #BBD2D9 !important; */
+	/* } */
+	.btn-secondary {
+    color: #212529;
+    background-color: #c3c3c350;
+    border-color: #c3c3c350;
+	}
+	.btn-secondary:hover {
+    color: #fff;
+    background-color: #adb5bd;
+    border-color: #adb5bd;
+}
+
+#historico h2 {
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 600;
+    color: #008288;
+    text-align: center;
+    padding: 20px 0 10px;
+}
+.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+
+	</style>
+</head>
+
+<body class="text-center">
+   <!-- -- -->
+   <div id="menuSuperior">
+		<header-cm  
+            caminho-relativo="../"
+            pagina-privada="true">
+        </header-cm>
+	</div>
+    <!-- -->
+    <section  id="historico" v-cloak >
+        <div id="loaderHistorico">
+
+        </div>
+        <div id="cardsHistorico" class="container">
+            <template v-if="historico.length === 0" >
+                <h2>Você ainda não realizou nenhuma consulta. Agende agora!</h2>
+            </template>
+            <template  v-else >
+                <h2>Estas são suas consultas passadas.</h2>
+
+                <b-card no-body class="mb-1"
+                    v-for="compra in historico" 
+                    v-bind:key="''+compra.id_compra">
+                    <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button	block href="#" 
+                            v-b-toggle="''+compra.id_compra" 
+                            :variant="compra.int_estado_compra === 3 ? 'success' : compra.int_estado_compra === 7 ? 'danger' : 'warning'">
+                    <div class="d-flex align-top">
+                        <h5 class="mb-1">  {{compra.str_nome_associado}} - <small>{{compra.str_especialidade}}</small></h5>
+                        <span class="ml-auto"  v-if="compra.int_estado_compra === 1">Aguardando pagamento	&nbsp;&nbsp;</span>
+                        <span class="ml-auto"  v-if="compra.int_estado_compra === 2">Em análise	&nbsp;&nbsp;</span>
+                        <span class="ml-auto"  v-if="compra.int_estado_compra === 3">Voucher: {{compra.long_voucher}} <br/>Data: {{compra.dataRegistroString}}	&nbsp;&nbsp;</span>
+                        <span class="ml-auto"  v-if="compra.int_estado_compra === 7">Pagamento não efetuado	&nbsp;&nbsp;</span>
+                            <span class="mr-2" v-if="compra.int_estado_compra === 1">
+                                <i class="far fa-money-check-alt"></i>
+                            </span>
+                            <span class="mr-2" v-if="compra.int_estado_compra === 2">
+                                <i class="far fa-hourglass-start"></i>
+                            </span>
+                            <span class="mr-2" v-if="compra.int_estado_compra === 3">
+                                <i class="far fa-check"></i>
+                            </span>
+                            <span class="mr-2" v-if="compra.int_estado_compra === 7">
+                                <i class="far fa-times"></i>
+                            </span>
+                    </div>
+                    <div style="text-align: left;">
+                        Data: <strong>{{compra.dataConsultaString}}</strong>
+                    </div>
+                </b-button>
+
+                        <!-- <b-button block href="#" 
+                            v-b-toggle="''+compra.id_compra" 
+                            :variant="compra.bool_pago ? 'info' : 'info'">
+                            <div class="d-flex align-top">
+                                <span class="mr-2" v-if="compra.bool_pago">
+                                    <i class="sistema sistema-clinica-icon-white"></i>
+                                </span>
+                                <span class="mr-2" v-else>
+                                    <i class="sistema sistema-clinica-icon-white"></i>
+                                </span>
+                                <h5 class="mb-1"> {{compra.str_nome_associado}}</h5>
+                                <span class="ml-auto" >Voucher: {{compra.long_voucher}} <br/>Data: {{compra.dataRegistroString}} </span>
+                            </div>
+                            <div style="text-align: left;">
+                                {{compra.str_especialidade}}
+                                
+                            </div>
+                        </b-button> -->
+                    </b-card-header>
+                    <b-collapse 
+                        :id="''+compra.id_compra" 
+                        visible accordion="''+compra.id_compra" 
+                        role="tabpanel">
+                    <b-card-body style="margin-top: 10px;">
+                        <b-container>
+                            <b-row align-v="center" class=" mt-1">                        
+                                <b-col cols="6">
+                                    <h5>Data compra: </strong> {{compra.dataRegistroString}}</strong></h5>
+                                </b-col>   
+                                <b-col cols="6">
+                                    <h5>Voucher: <strong> {{compra.long_voucher}}</strong></h5>
+                                </b-col>   
+                            </b-row> 
+                            <b-row align-v="center"  class="mb-2"> 
+                                <b-col cols="12" md="8">                                            
+                                    <div class="especialidadeAssociado">          
+                                        <i class="sistema sistema-associado-icon mr-2" style="float: left;"></i>
+                                        <h4>{{compra.str_nome_associado}}</h4>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                            <b-row align-v="center" > 
+                                <b-col cols="12">
+                                    <div class="nomeAssociado">
+                                        <i class="sistema sistemas-especialidade-icon pr3 mr-2" style="float: left;"></i>
+                                        <h4>{{compra.str_especialidade}}</h4>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                            <b-row align-v="center"  class="ml-4"> 
+                                <b-col cols="12">
+                                    <div class="enderecoAssociado">
+                                            {{compra.str_associado_endereco}}
+                                    </div>
+                                </b-col>
+                            </b-row>
+                            <b-row align-v="center"  class="row mt-3"> 
+                                <b-col cols="12">
+                                    <div class="dataConsulta">
+                                        <i class="sistema sistema-agenda-icon mr-2" style="float: left;"></i>
+                                        <strong>{{compra.dataConsultaString}}</strong>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                            <b-row  align-v="center" class=" mt-2">                        
+                                <b-col>
+                                    <h4>Total R$ </strong>{{compra.dec_valor_consulta}}</strong></h4>
+                                </b-col>   
+                            </b-row> 
+
+                        </b-container>
+                    </b-card-body>
+                    </b-collapse>
+                </b-card>
+            </template>
+        </div>
+    
+</section>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>
+			
+	<script src="../resources/js/utils.js"></script>
+	<script src="../resources/js/loaderContent.js"></script>
+	<script src="../resources/js/libs/vue.js"></script>
+	<script src="../resources/js/libs/bootstrap-vue.js"></script>
+	<script src="../resources/js/libs/axios.min.js"></script>
+    <script src="../resources/js/libs/httpVueLoader.js"></script>
+	<script src="../resources/js/historico.js"></script>
+</body>
+
+</html>

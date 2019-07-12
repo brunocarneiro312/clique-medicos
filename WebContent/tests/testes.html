@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Testes</title>
+	<link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		[v-cloak] > * { display:none !important; }
+		.componentes{
+			display:none;
+		}
+		.tabela {
+    		border-radius: .25rem;
+			border-top: 1px solid rgba(0,0,0,.125);
+			border-left: 1px solid rgba(0,0,0,.125);
+		}
+		.tabela div{
+			border-radius: .25rem;
+			border-bottom: 1px solid rgba(0,0,0,.125);
+			border-right: 1px solid rgba(0,0,0,.125);
+		}
+		.tabela-header{
+			font-weight: bold;
+		}
+		.icone-teste{
+			font-size:32px;
+			float:left;
+		}
+		.no-padding .card-header{
+			padding:0px!important;
+		}
+		.card-header{
+			padding:5px!important;
+		}
+		.card-body{
+			padding:0px;
+		}
+		#testes .card-footer{
+			padding:0px!important;
+		}
+	</style>
+</head>
+<body>
+	<div id="testes" style="text-align: center!important;" class="container" v-cloak>
+		<b-card header-tag="header" footer-tag="footer" style="margin-bottom:50px">
+			<b-card-header 
+			id="resultadoTestes" 
+			header-tag="header" 
+			class="p-1 no-padding" 
+			role="tab"
+			style="font-weight:bold;font-size:32px">
+				Testes: {{sucessosTotal}}/{{total}}
+			</b-card-header>
+			<b-card-body style="padding:10px">
+				<div>
+					Falhou <i class="fa fa-circle" style="color:#ED553B"></i>
+				</div>
+				<div>
+					Rodando <i class="fa fa-circle" style="color:#3c79ae"></i>
+				</div>
+				<div>
+					Sucesso <i class="fa fa-circle" style="color:#3cae6f"></i>
+				</div>
+			</b-card-body>
+			<b-card-footer header-tag="footer">
+				<b-button class="col-12" @click="rodarTestes()">Rodar testes</b-button>
+			</b-card-footer>
+		</b-card>
+		<b-card v-for="(arquivo, index) in listaArquivos"
+		header-tag="header"
+		:id="'res-head-'+arquivo.nome"
+		:key="'res-head-'+arquivo.nome">
+			<div class="row" slot="header">
+				<div class="col-10" style="text-align: left!important;">
+					<h3 style="margin-left:10px;">{{arquivo.nome}}</h3>
+				</div>
+				<h3 class="col-2">{{arquivo.sucessos}}/{{arquivo.listaTestes.length}}</h3>
+			</div>
+			<div class="row" style="margin-right: 15px!important;margin-left: 15px!important">
+				<div class="col-12">
+					<b-card no-body v-for="(option, index) in arquivo.listaTestes" 
+					header-tag="header" 
+					:key="option.nomeTeste+index">
+						<b-card-header header-tag="header" class="p-1 no-padding" role="tab">
+							<b-button block href="#" v-b-toggle="option.nomeTeste+index" :id="'res-'+option.nomeTeste+'-'+index">
+								{{option.nomeTeste}}
+							</b-button>
+						<b-card-header>
+						<b-card-body v-if="option.erro.length > 0"
+						style="padding:10px 0px 0px 10px!important">
+							<p v-if="Array.isArray(option.erro) === false"
+							style="margin-bottom:10px">
+								{{option.erro}}
+							</p>
+							<p v-else v-for="(msg, index2) in option.erro"
+							style="margin-bottom:10px">
+								{{msg}}
+							</p>
+						</b-card-body>
+					</b-card>
+				</div>
+			</div>
+		</b-card>
+		<div class="componentes">
+			<header-cm  
+				:caminho-relativo="headerCm.caminhoRelativo"
+				:pagina-privada="headerCm.paginaPrivada">
+			</header-cm>
+
+			<footer-cm>
+			</footer-cm>
+
+			<compra-cartao
+				v-on:pagar-cartao="gpCompra.pagarCartao">
+			</compra-cartao>
+
+			<calendario 
+				:dias-com-horarios="calendario.diasComHorarios"
+				:css-dia-inicial="calendario.cssDiaInicial"
+				:css-dia-com-horario="calendario.cssDiaComHorario"
+				:css-dia-padrao="calendario.cssDiaPadrao"
+				:estilo-visualizacao="calendario.estiloVisualizacao"
+				:acesso-ao-passado="calendario.acessoAoPassado"
+				:loader-ligado="calendario.loaderLigado"
+				v-on:mudou-ano="calendario.mudouAno"
+				v-on:mudou-mes="calendario.mudouMes"
+				v-on:apertou-hoje="calendario.apertouHoje"
+				v-on:seleciona-dia="calendario.selecionaDia">
+			</calendario>
+
+			<login>
+			</login>
+
+			<cadastro>
+			</cadastro>
+		</div>
+		
+	</div>
+
+	<!-- UTILS -->
+	<script type="text/javascript">
+		_testesRodando = true;
+	</script>
+    <script src="../resources/js/utils.js"></script>
+    <script src="../resources/js/loader.js"></script>
+	<!-- LIBS -->
+    <script src="../resources/js/libs/vue.js"></script>
+    <script src="../resources/js/libs/vue-the-mask.js"></script>
+    <script src="../resources/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="../resources/js/libs/bootstrap-vue.js"></script>
+    <script src="../resources/js/libs/httpVueLoader.js"></script>
+    <script src="../resources/js/libs/axios.min.js"></script>
+    <script src="../resources/js/libs/rxp-hpp.js"></script>
+	<!-- JAVASCRIPT VUE -->
+    <script src="../resources/js/associados.js"></script>
+    <script src="../resources/js/compra.js"></script>
+    <script src="../resources/js/index.js"></script>
+    <script src="../resources/js/verificar.js"></script>
+    <script src="../resources/js/registro.js"></script>
+    <script src="../resources/js/historico.js"></script>
+    <script src="../resources/js/agendamentos.js"></script>
+	<!-- TESTES -->
+	<script src="testes_utils.js"></script>
+    <script src="testes.js"></script>
+</body>
+</html>

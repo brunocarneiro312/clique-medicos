@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Clique Médicos</title>
+<!-- Meta Tags SEO-->
+<meta name="description" content="" />
+<meta name="keywords" content=""/>
+
+<!-- Principal CSS do Bootstrap -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#BBD2D9">
+<!--CSS-->
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/bootstrap-vue.min.css" rel="stylesheet">
+<link href="resources/css/vue-select.css" rel="stylesheet">
+<link href="resources/css/all.css" rel="stylesheet">
+<link href="resources/css/home.css" rel="stylesheet" >
+<!-- Add to home screen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+<!---->
+<meta name="msapplication-TileImage" content="resources/images/favico/mstile-150x150.png">
+<meta name="msapplication-TileColor" content="#BBD2D9">
+<meta name="theme-color" content="#ffffff">
+<!-- Imagens favico-->
+<link rel="apple-touch-icon" href="resources/images/favico/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favico/favicon-16x16.png">
+<!---->
+<style>
+.columns {
+  flex-wrap: wrap;
+}
+#artigosBlog p{
+	font-size: 0.9rem;
+    color: #008288;
+    font-weight: normal;
+	text-align: left;
+}
+#artigosBlog{
+    background-color: #e9ecef;
+    border-radius: .3rem;
+	padding: 2rem 0rem;
+}
+#artigosBlog h4{
+	font-size: 1.1rem;
+    color: #1c6a82;
+    text-align: center;
+    font-weight: 600;
+}
+#artigosBlog h2 {
+    font-size: 2.5rem;
+    /* color: #008288; */
+    font-weight: 600;
+    text-align: center;
+	padding: 0 0 10px;
+}
+#artigosBlog .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding:0.75rem 0.75rem 0.25rem
+}
+#artigosBlog a {
+    font-size: 1.1rem;
+    color: #008288;
+    font-weight: 600;
+}
+
+#newsLetter{
+	padding: 2rem 0rem;
+}
+
+#newsLetter h2 {
+    font-size: 2.5rem;
+    color: #008288;
+    font-weight: 600;
+    text-align: center;
+	padding: 0 0 10px;
+}
+#newsLetter p{
+	font-size: 1.1rem;
+    color: #008288;
+    font-weight: normal;
+	text-align: left;
+}
+.v-select {
+	max-height: 270px;
+	font-size: 16px;
+}
+.selectEspecialidades {
+	max-height: 270px;
+    background-color: #fff;
+    border: 2px solid #00898f !important;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.selectEspecialidades .vs__search::placeholder,
+  .selectEspecialidades .vs__dropdown-toggle,
+  .selectEspecialidades .vs__dropdown-menu {
+    background-color: #fff;
+    border: none;
+    color: #008288;
+    text-transform: lowercase;
+    font-variant: small-caps;
+  }
+  /* .selectEspecialidades .vs__dropdown-toggle,
+.selectEspecialidades .vs__dropdown-menu {
+    background-color: #fff !important;
+    border: 1px solid #00898f !important;
+    border-bottom-left-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+    border-top:none;
+} */
+
+  .selectEspecialidades .vs__clear,
+  .selectEspecialidades .vs__open-indicator {
+    fill: #008288;
+  }
+  #divCampoBusca , .form-signin {
+  	max-width: 400px !important;
+  }
+  .vs__search, .vs__search:focus {
+    line-height: 1.4;
+    font-size: 1.2em;	
+    color: #008288;
+	text-align: left;
+	position: absolute !important;
+}
+.vs__selected {
+    line-height: 1.4;
+    font-size: 1.2em;
+    /* margin-bottom: -30px; */
+}
+.vs__selected-options {
+	min-height: 30px;
+}
+.vs__selected + input {
+    position: absolute !important;
+	margin-top:-30px;
+}
+.vs__selected-options > input {
+	width: 100% !important;
+
+}
+.vs--single .vs__selected {
+    text-align: left;
+}
+</style>
+</head>
+<body class="text-center">
+   <!-- -- -->
+	<div id="menuSuperior" v-cloak>
+		<header-cm  
+			caminho-relativo=""
+			pagina-privada="false">
+		</header-cm>
+	</div>
+	<!-- -->
+    <section class="banner " id="appIndex" v-cloak>
+    	<b-container class="">
+        	<b-row>
+	             <b-col cols="12" md="6">	                
+	           		<img src="resources/images/imagem_banner.png" class="imgBanner">  	                 
+	            </b-col>     
+	            <b-col cols="12" md="6" class="mt-2 mb-1 busca"> 					            
+					<b-row align-h="end">
+						<b-col cols="12">
+							<img src="resources/images/logo_Cliquemedicos_verde.png"  style="height: 80px;float: right;"/>  	
+						</b-col>
+					</b-row>
+					<b-row align-h="end" class=" mb-2">
+						<b-col cols="12"  lg="10">
+							<h2>Agende sua consulta com poucos cliques.</h2>
+						</b-col>
+					</b-row>	                	                       
+	                <b-row align-h="end" id="formLogin" >
+	                	<div style="min-height: 200px;    width: 400px;">
+	                		<b-alert
+								:show="dismissCountDown"
+								dismissible
+								variant="warning"
+								@dismissed="dismissCountDown=0"
+								@dismiss-count-down="countDownChanged">
+								<p>{{ msgErro }}, aguarde {{ dismissCountDown }} segundos...</p>
+								<b-progress
+									variant="warning"
+									:max="dismissSecs"
+									:value="dismissCountDown"
+									height="4px">
+								</b-progress>
+							</b-alert>
+		                    <b-form class="form-signin" id="divCamposBusca" @keydown.enter.prevent.self>
+								<!--  -->
+							<v-select 	class="selectEspecialidades mb-2"
+										placeholder="Escolha uma especialidade" 
+										:options="mockServicos"  
+										v-model="especialidadeSelecionada"
+										label="descricao"
+										code="mockServicos.especialidade" 
+										@input="onVSelectChange"
+								>
+								<template slot="option" slot-scope="option">
+									<i :class="option.tipo == 'Consulta' ? 'far fa-user-md': 'far fa-notes-medical'"></i>
+									{{option.label ? option.label : option.descricao}}
+								</template>
+							</v-select>
+							<!-- <p style="max-width: 270px;">{{especialidadeSelecionada}}</p> -->
+							<!--  -->
+							
+								<div id="selectLocalidade">
+									<b-form-group
+										label="Informe as localidades (opcional)"
+										label-align-sm="top"
+										label-for="localidade"
+										class="labelForm mb-2">
+										<b-form-select 	
+											id="localidade" 
+											v-model="localidadeSelecionada" 
+											:options="listaLocalidades" 
+											text-field="descricao" value-field="id"
+											multiple	
+											:select-size="2"
+											size="sm"
+											placeholder="Escolha a localidade"
+											class="form-control col-12" 
+											:disabled="erro">
+											<template slot="first">
+												<option :value="-1" disabled>Informe as localidades</option>
+											</template>
+										</b-form-select>
+										<div style="text-align:center">
+											<div id="loaderLocalidade" role="status" class="aqui"></div>
+										</div>
+									</b-form-group>
+								</div>
+								<!--  -->
+								<b-form-group 	label="Ou o nome do profissional (opcional)" 
+												label-align-sm="top" 
+												label-for="nom_profissional"
+												class="labelForm mb-2">
+									<b-form-input 	type="text" 
+													maxlength="100" class="form-control col-12" 
+													id="nom_profissional" 
+													size="sm"
+													placeholder="Informe o profissional desejado" 
+													type="text" 
+													v-model="nomeProfissional" 
+													:disabled="erro">
+									</b-form-input>
+								</b-form-group>
+								<!--  -->
+								
+
+		                        <b-button
+		                        	id="botaoBusca"
+		                        	type="button" aria-label="Add" 
+                        			class="btn btn-success btn-sm col-12" 
+                        			v-on:click="buscaMedico()"
+                        			:disabled="naoPodeBuscar"
+                        			:style="[naoPodeBuscar === true ? {'display':'none'}:{'margin': '5px 0px 10px'}]">
+									<span class="spinner-border-sm" id="botaoBuscaLoader" role="status" aria-hidden="true"></span>
+									PROCURAR MÉDICO
+								</b-button>
+								<!-- <ul v-for="testes in teste" >
+									<li>{{testes.label ? testes.label : testes.descricao}}</li>
+								</ul> -->
+	                        </b-form>
+                    	</div>
+	                </b-col>
+	            </b-col>
+            </b-row>
+		</b-container>
+
+    </section>    
+<!-- -->
+	<main id="conteudo">
+        <div class="container">
+     		<div class="caracteristicas">
+        		<div class="d-flex flex-column">
+       				<div class="p-2 mt-4">
+		        		<h2>Marque sua consulta de forma rápida, segura  e moderna.</h2>
+	        		</div>
+	        		 <div class="p-2">
+		        		<p>Para tornar a saúde acessível, o Clique Médicos une em uma plataforma médicos e 
+							clínicas que oferecem serviços com excelência e praticidade.</p>
+					</div>
+        		</div>
+        	</div>
+   			<div class="dados">
+	        	<div class="row">
+
+        			<div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4">
+	        			<img src="resources/images/icones/icones-credibilidade-96.png" />
+	        			<h2>CREDIBILIDADE</h2>
+	    				<h3>Rede médica AMHP com mais de 35 anos de mercado</h3>
+					</div>
+					
+	        		<div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4">
+	        			<img src="resources/images/icones/icones-qualidade-96.png" />
+	        			<h2>QUALIDADE</h2>
+	    				<h3>Médicos e Clínicas Qualificados</h3>
+					</div>
+					
+	        		<div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4">
+	        			<img src="resources/images/icones/icones-praticidade-96.png" />
+			    		<h2>PRATICIDADE</h2>
+	    				<h3>Acesso sem mensalidade ou carência </h3>
+					</div>
+
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4">
+						<img src="resources/images/icones/icones-utilidade-96.png" />
+						<h2>UTILIDADE</h2>
+						<h3>Acesso à saúde de qualidade</h3>
+					</div>
+
+	        	</div>
+        	</div>
+        
+        </div>
+	</main>
+	<div id="artigosBlog">
+		<section class="section">
+			<b-container>	
+				<b-row>
+					<b-col cols="12">
+						<h2>Blog Clique Médicos</h2>
+					</b-col>
+				</b-row>
+
+				<div id="loaderArtigosBlog" role="status" class="aqui"></div>
+				<b-card-group deck id="cardsArtigosBlog">
+					<template v-for="(post, index) in posts.slice(0,3)">
+						<b-card :img-src="post._embedded['wp:featuredmedia'][0].source_url" 
+								img-alt="images" 
+								img-top>							
+						<b-card-title><h4 v-html="post.title.rendered"></h4></b-card-title>
+						<b-card-text v-html="post.excerpt.rendered"></b-card-text>
+						</b-card-text>
+						<div slot="footer">							
+							<a :href="post.link" class="button is-primary" target="_blank">Leia mais!</a></div>
+						</b-card>
+					</template>	
+				</b-card-group>
+			</b-container>	
+		</section>	
+	</div>
+	<div id="newsLetter">
+			<section class="section">
+				<b-container>	
+					<b-row>
+						<b-col cols="12">
+							<h2>Quer ficar por dentro de todas nossas novidades?</h2>
+						</b-col>
+					</b-row>
+					<b-row>
+						<b-col cols="12">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-12 col-xs-12">										
+										<p>Assine nossa newsletter!</p>
+									</div>
+								</div>
+								<b-input-group>								
+									<b-form-input type="text" placeholder="Digite seu nome" ></b-form-input>								
+									<b-form-input type="email" placeholder="Digite seu e-mail" ></b-form-input>								
+									<b-input-group-append>
+										<b-button variant="primary">Enviar</b-button>
+									</b-input-group-append>
+								</b-input-group>
+							</div>
+						</b-col>
+					</b-row>
+				</b-container>
+			</section>
+	</div>
+<!-- -->	
+	<footer id="rodape" class="">
+		<b-container>
+			<b-row>
+				<b-col>
+					<div>
+						<!-- <button style="margin-top: -50px;position: absolute;" @click="scrollToTop(500)">volta para cima</button> -->
+					</div>
+				</b-col>
+			</b-row>
+		</b-container>
+        <footer-cm></footer-cm>
+    </footer>
+    <script src="resources/js/utils.js"></script>
+    <script src="resources/js/loaderContentHome.js"></script>
+    <script src="resources/js/libs/vue.js"></script>
+    <script src="resources/js/libs/bootstrap-vue.min.js"></script>
+	<script src="resources/js/libs/axios.min.js"></script>	
+    <script src="resources/js/libs/httpVueLoader.js"></script>
+   	<script src="resources/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="resources/js/libs/bootstrap.bundle.min.js"></script>
+	<script src="resources/js/libs/vue-select.js"></script>
+    <script src="resources/js/index.js"></script>
+
+
+</body>
+
+</html>

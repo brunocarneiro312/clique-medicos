@@ -1,0 +1,256 @@
+@import 'geral.css';
+
+@import 'ie10-viewport-bug-workaround.css';
+
+@import 'sticky-footer-navbar.css';
+
+@import 'pagamento.css';
+
+@import 'redesSociais.css';
+
+/*Personaliza��o do bootstrap*/
+/* .bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+} */
+/***/
+
+[v-cloak] > * { display:none !important; }
+#logo_Cliquemedicos_nav {
+	height: 50px;
+}
+
+#menuSuperior {
+	/* 	height:70px; */
+	
+}
+.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+.banner {
+	background: url(../images/setaBackground.png) top left no-repeat;
+    padding: 0rem 1rem 0rem;
+	margin-top: -4px;
+	margin-bottom: 0px;
+	background-color: #e9ecef;
+	border-radius: .3rem;
+	background-size: 21%;
+}
+/*****/
+#conteudo {
+	background: url(../images/detalhe_caracteristicas.png) top right;
+	background-repeat: no-repeat;
+	margin-top: 0px;
+	background-size: 25%;
+}
+
+.caracteristicas {
+	min-height: 150px;
+}
+
+.dados {
+	min-height: 350px;
+}
+
+.banner .form-control {
+	padding: 1px;
+	font-size: 16px;
+	border-color: #BBD2D9;
+	border-style: solid;
+	border-width: 3px;
+	margin: 2px 0px;
+}
+
+.obrigatorio {
+	border-color: rgba(29, 105, 129, 0.6) !important;
+}
+
+.busca {
+    z-index: 999;
+    margin-top: 20px;
+}
+
+.imgBanner {
+    height: 473px;
+    margin-left: -320px;
+}
+
+.busca h2 {	
+	font-size: 1.85rem;
+	color: #008288;
+	font-weight: 300;
+	text-align: right;
+	line-height: 2rem;
+}
+
+.caracteristicas {
+	margin: 0px 0px 70px;
+}
+
+.caracteristicas h2 {
+	font-size: 2.5rem;
+	color: #008288;
+	font-weight: 600;
+	text-align: center;
+}
+
+.caracteristicas p {
+	font-size: 1.5rem;
+	color: #008288;
+	font-weight: normal;
+}
+
+.dados h2 {
+    font-size: 1.85rem;
+    color: #1c6a82;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.dados h3 {
+	font-size: 1.3rem;
+	color: #1c6a82;
+	text-align: center;	
+    font-weight: 400;
+}
+
+.depoimentos {
+	height: 100px;
+	line-height: 60px; /* Vertically center the text there */
+	background-color: #f5f5f5;
+}
+
+.footer {
+	background: url(../images/backgroundFooter.png) bottom left;
+	background-repeat: no-repeat;
+	background-size: auto;
+	bottom: 0px;
+	background-position-x: -140px;
+}
+
+#menuInferior h4 {
+	font-size: 1.0rem;
+	color: #008288;
+	text-align: left;
+	margin: 15px 0 5px;
+}
+
+.mapaSite {
+	text-align: left;
+}
+
+.mapaSite ul>li {
+	list-style-type: none;
+	margin: 5px 0;
+}
+li.nav-item.item-institucional {
+    list-style-type: none !important;
+}
+.item-institucional li{
+
+	margin: -10px 0 0 0 !important;
+}
+.item-institucional > a {
+	font-size: 1.50rem !important;	
+    font-weight: 400 !important;
+}
+
+#menuInferior h3 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #008288;
+	text-align: left;
+	margin: 20px 0 0;
+}
+.labelForm {
+	text-align: left;
+	color: #008288;
+}
+.labelForm label {
+    padding-bottom: 0px;
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+	.imgBanner {
+		opacity: 1;
+		position: absolute;
+		left: -150px;
+		z-index: 1;
+		height: 427px;
+	}
+}
+
+@media (min-width: 901px) and (max-width: 1000px){
+	.imgBanner {
+		opacity: 1;
+		position: absolute;
+		left: -270px;
+		height: 427px;
+		z-index: 1;
+	}
+}
+
+
+@media (min-width: 767px) and (max-width: 900px) {
+	.imgBanner {
+		opacity: 1;
+		position: absolute;
+		left: -229px;
+		z-index: 1;
+		height: 413px;
+	}
+}
+
+@media ( max-width : 768px) {
+	.imgBanner {
+		opacity: 0.1;
+		position: absolute;
+		left: -58px;
+		z-index: 1;
+		height: 412px;
+	}
+}
+
+@media ( max-width : 576px) {
+	.banner {
+		background: url(../images/setaBackground.png) top left no-repeat;
+		padding: 0.5rem 1rem;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		background-color: #e9ecef;
+		border-radius: .3rem;
+		background-size: 200%;
+	}
+	.imgBanner {
+		opacity: 0.1;
+		margin-top: -30px;
+		position: absolute;
+		left: -300px;
+		z-index: 1;
+		height:430px;
+		margin-left: -300px;
+	}
+
+	.caracteristicas h2 {
+		font-size: 2rem;
+		color: #008288;
+		font-weight: 600;
+		text-align: center;
+	}
+	.caracteristicas p {
+		font-size: 1.5rem;
+		color: #008288;
+		font-weight: normal;
+	}
+	.mapaSite ul>li {
+		list-style-type: none;
+		margin: 10px 0;
+	}
+	.busca {
+		margin-top: 0px;
+	}
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="resources/css/associados.css" rel="stylesheet">
+	<link href="resources/css/geral.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+		.separador{
+	        margin-top: 5px;
+	    }
+	    .separador hr{
+	        margin-top: 0px;
+	    }
+	    #appLogin h2, #appRegistro h2{
+	        font-size: 2rem;
+	        line-height: 2rem;
+	        font-weight: 600;
+	        color: #008288;
+	        text-align: center;
+	        padding: 20px 0 10px;
+	    }
+		.calendarioAssociado{
+			max-width:300px;
+		}
+		.vc-popover-caret {
+	    content: "";
+	    position: absolute;
+	    display: block;
+	    width: 12px;
+	    height: 12px;
+	    border-top: inherit;
+	    border-left: inherit;
+	    background: inherit;
+	    z-index: -1;
+	    }
+	    .tooltip-inner {
+	        max-width: 200px;
+	        padding: 0.25rem 0.5rem;
+	        color: #BBD2D9;
+	        text-align: center;
+	        background-color: #FFF;
+	        border-radius: 0.25rem;
+	    }
+		.card-body {
+	        padding: 0.25rem;
+	        text-align: left;
+	        color: #008288;
+	    }
+	    .card-header, .card-footer {
+	        background: #00898f;
+	        border-color: #1d6981;
+	        font-size: 1.5rem;
+	        line-height: 1.0;
+	        text-align: left;
+	        color: #fff;
+	    }
+	    .card-footer {
+	        font-size: 1.2rem;
+	        line-height: 1.0;
+	        font-weight: 400;
+		}
+		.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+		
+	</style>
+</head>
+
+<body class="text-center">
+   <!-- -- -->
+   <div id="menuSuperior">
+		<header-cm  
+			caminho-relativo=""
+			pagina-privada="false">
+		</header-cm>
+	</div>
+	<!-- -->
+	<div id="registro">
+		<cadastro v-if="cadastrando"
+			v-on:toggle-cadastro="toggleCadastro">
+		</cadastro>
+		<login v-else
+			v-on:toggle-cadastro="toggleCadastro">
+		</login>
+	</div>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>
+			
+	<script src="resources/js/utils.js"></script>
+	<script src="resources/js/loaderContent.js"></script>
+	<script src="resources/js/libs/vue.js"></script>
+	<script src="resources/js/libs/bootstrap-vue.js"></script>
+	<script src="resources/js/libs/axios.min.js"></script>
+    <script src="resources/js/libs/httpVueLoader.js"></script>
+    <script src="resources/js/libs/vue-the-mask.js"></script>
+	<script src="resources/js/registro.js"></script>
+</body>
+
+</html>

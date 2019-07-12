@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="../manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="../resources/css/bootstrap.css" rel="stylesheet">
+	<link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="../resources/css/all.css" rel="stylesheet"> <!--load all styles -->
+	<link href="../resources/css/dados.css" rel="stylesheet">
+	<link href="../resources/css/vcloak.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="../resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="../resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+		.separador {
+	        margin-top: 5px;
+	    }
+	    .separador hr{
+	        margin-top: 0px;
+	    }
+	    #dados h2{
+	        font-size: 2rem;
+	        line-height: 2rem;
+	        font-weight: 600;
+	        color: #008288;
+	        text-align: center;
+	        padding: 20px 0 10px;
+	    }
+		.calendarioAssociado{
+			max-width:300px;
+		}
+		.vc-popover-caret {
+		    content: "";
+		    position: absolute;
+		    display: block;
+		    width: 12px;
+		    height: 12px;
+		    border-top: inherit;
+		    border-left: inherit;
+		    background: inherit;
+		    z-index: -1;
+	    }
+	    .tooltip-inner {
+	        max-width: 200px;
+	        padding: 0.25rem 0.5rem;
+	        color: #BBD2D9;
+	        text-align: center;
+	        background-color: #FFF;
+	        border-radius: 0.25rem;
+	    }
+		.card-body {
+	        padding: 0.25rem;
+	        text-align: left;
+	        color: #008288;
+	    }
+	    .card-header, .card-footer {
+	        background: #00898f;
+	        border-color: #1d6981;
+	        font-size: 1.5rem;
+	        line-height: 1.0;
+	        text-align: left;
+	        color: #fff;
+	    }
+	    .card-footer {
+	        font-size: 1.2rem;
+	        line-height: 1.0;
+	        font-weight: 400;
+		}
+		.btn-warning {
+			color: #212529;
+			background-color: #ffc10775;
+			border-color: #ffc10775;
+		}
+		.btn-secondary {
+			color: #212529;
+			background-color: #c3c3c350;
+			border-color: #c3c3c350;
+		}
+		.btn-secondary:hover {
+			color: #fff;
+			background-color: #adb5bd;
+			border-color: #adb5bd;
+		}
+		.firebrick {
+			color: firebrick;
+		}
+		.alert-email-warning {
+			border: 1px solid #856404;
+			font-size: 0.9em;
+		}
+		.alert-email-info {
+			border: 1px solid rgb(12, 84, 96);
+			font-size: 0.9em;
+		}
+		.alert-email-title {
+			font-weight: bold;
+		}
+		.alert-email-body {
+
+		}
+		.alert-email-body div {
+			margin-bottom: 5px;
+		}
+
+		#servico h2 {
+			font-size: 2rem;
+			line-height: 2rem;
+			font-weight: 600;
+			color: #008288;
+			text-align: center;
+			padding: 20px 0 10px;
+		}
+		.bg-cliqueMedicos {
+			background-color: #BBD2D9 !important;
+		}
+
+		.hepta-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, .80);
+			z-index: 9998;
+			width: 100%;
+			height: 100%;
+		}
+
+		.model {
+			width: 500px;
+			z-index: 9999;
+			position: absolute;
+			left: calc(50% - 250px);
+			top: 250px;
+			background: white;
+			border: 1px solid indianred;
+		}
+		 .model input {
+			 border: 1px solid indianred;
+			 color: indianred;
+		 }
+		 .model input::placeholder {
+			 color: indianred;
+			 font-weight: bold;
+			 font-size: 0.9em;
+		 }
+		.modal-body {
+			padding: 25px 15px;
+		}
+		.model textarea:focus,
+		.model textarea.form-control:focus,
+		.model input.form-control:focus,
+		.model input[type=text]:focus,
+		.model input[type=password]:focus,
+		.model input[type=email]:focus,
+		.model input[type=number]:focus,
+		.model [type=text].form-control:focus,
+		.model [type=password].form-control:focus,
+		.model [type=email].form-control:focus,
+		.model [type=tel].form-control:focus,
+		.model [contenteditable].form-control:focus {
+			box-shadow: inset 0 -1px 0 #ddd;
+			color: indianred;
+			border: 1px solid firebrick;
+		}
+
+		.model .delete-header {
+			background: indianred;
+			border: 1px solid indianred;
+			border-radius: 0;
+			padding: 0;
+			margin: 0;
+			color: white;
+		}
+
+		.model .card {
+			border: 0;
+		}
+
+	</style>
+</head>
+
+<body class="text-center">
+   <!-- -- -->
+   <div id="menuSuperior">
+		<header-cm  
+			caminho-relativo="../"
+			pagina-privada="true">
+		</header-cm>
+	</div>
+	<!-- -->
+	<section id="dados" v-cloak>
+
+		<b-container>
+			<template v-if="!logado">
+				<b-row>
+					<b-col>
+						<h2>Você ainda não realizou o login. Entre agora!</h2>
+						<hr />
+					</b-col>
+				</b-row>
+			</template>
+			<template v-else>
+				<b-row>
+					<b-col>
+						<h2>Confira seus dados, se precisar pode atualizá-los. </h2>
+						<hr />
+					</b-col>
+				</b-row>
+				<b-row  align-h="center">
+					<b-col cols="12" md="8">
+						<b-card no-body class="mb-1" name="pagamento">
+							<b-card-header header-tag="header" class="p-2" role="tab">
+								Dados Cadastrais
+							</b-card-header>
+
+							<!-- Mensagem de erro no caso de exclusão de conta malsucedida -->
+							<b-card-body class="mt-1 p-2" v-if="local.deleteInfo.errorOnDelete">
+								<b-alert
+										:show="local.deleteInfo.errorOnDelete"
+										:variant="'danger'"
+										:dismissible='false'>
+
+									{{ local.deleteInfo.mensagemContaDeletada }}
+								</b-alert>
+							</b-card-body>
+
+							<b-card-body class="mt-1 p-2" v-if="alertaDados">
+								<b-alert
+									:show="alertaDados" 
+									:variant="tipoAlertaDados" 
+									:dismissible='fecharAlertaDados'>
+									{{mensagemAlertaDados}}
+								</b-alert>
+							</b-card-body>
+							<b-card-body class="mt-1 p-2">
+								<b-alert
+									v-if="!isEmailValidacaoEnviado"
+									class="alert-email-warning"
+									:show="!usuario.bool_verificado"
+									:variant="'warning'"
+									:dismissible="false">
+									<div class="row">
+										<div class="col-md-2 col-sm-4 text-center pb-1">
+											<span class="alert-email-title">Atenção <i class="far fa-exclamation-triangle fa-fw"></i></span>
+										</div>
+										<div class="col">
+											<div class="alert-email-body">
+												<div>
+													O E-mail <b>{{ usuario.str_email }}</b> ainda não foi verificado.
+												</div>
+												<div>
+													<small>
+														<b><a class="alert-email-link" href="#" @click="enviarEmailValidacao()">clique aqui</a></b> para enviar e-mail de confirmação novamente.
+													</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</b-alert>
+								<b-alert
+									v-if="isEmailValidacaoEnviado"
+									class="alert-email-info"
+									:show="!usuario.bool_verificado"
+									:variant="'info'"
+									:dismissible="false">
+									<div class="row">
+										<div class="col-md-2 col-sm-4 text-center pb-1">
+											<span class="alert-email-title">Enviado! <i class="far fa-paper-plane fa-fw"></i></span>
+										</div>
+										<div class="col">
+											<div class="alert-email-body">
+												<div v-once>
+													O E-mail de verificação foi enviado para <b>{{ usuario.str_email }}</b>
+												</div>
+												<div>
+													<small>
+														<b>* Caso não encontre o e-mail, verifique a caixa de <i>Spam</i></b>
+													</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</b-alert>
+							</b-card-body>
+							<div style="text-align:center">
+								<div id="loaderDados" role="status"></div>
+							</div>
+							<div id="conteudoDados">
+								<b-card-body class="mt-1">
+									<div>
+										<b-row align-v="center"  class="mb-2"></b-row>
+											<b-col>
+												<span><h4><i class="far fa-user"></i> Informações pessoais</h4></span>
+												<hr>
+											</b-col>
+										</b-row>
+										<b-row align-v="center"  class="m-2">
+											<b-col sm="2" class="label-form">
+												<label for="registraNome">
+													Nome
+												</label>
+											</b-col>
+											<b-col sm="10">
+												<input   
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraNome"
+													size="sm"
+													placeholder="Informe o seu nome"
+													@blur="validaCampo($event)"
+													v-model="usuario.str_nome"> 
+												</input>
+												<b-form-invalid-feedback id="input-live-feedback">
+													Informe seu nome
+												</b-form-invalid-feedback>  
+											</b-col>
+										</b-row>
+										<b-row  align-v="center"  class="m-2">
+											<b-col sm="2" class="label-form">
+												<label for="registraTelefone">
+													Telefone
+												</label>
+											</b-col>
+											<b-col sm="10">
+												<input 
+													type="tel"
+													class="form-control" 
+													id="registraTelefone"
+													size="sm"
+													v-mask="'(##)#####-####'"
+													placeholder="Informe o seu telefone (com DDD)"
+													@keyup="validaTelefone($event)"
+													v-model="usuario.str_telefone"> 
+												</input>
+												<b-form-invalid-feedback id="input-live-feedback">
+													{{ erroTelefone }}
+												</b-form-invalid-feedback> 
+											</b-col>
+										</b-row>
+										<b-row  align-v="center" class="m-2">
+											<b-col sm="2" class="label-form">
+												<label for="dataNascimento">Data Nascimento</label>
+											</b-col>
+											<b-col sm="10">
+												<input
+												type="date" maxlength="100"
+												class="form-control"
+												id="dataNascimento"
+												size="sm"
+												v-model="dataNascimentoString">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira sua data de nascimento
+											</b-form-invalid-feedback> 
+										</b-col>
+									</b-row>
+									<!--  -->
+									<!-- <b-row  align-v="center"  class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="cep">
+												CEP
+											</label>
+										</b-col>
+										<b-col sm="10">
+											<input 
+												type="tel"
+												class="form-control" 
+												id="cep"
+												size="sm"
+												v-mask="'#####-###'"
+												placeholder="Informe o seu CEP"
+												@keyup="validaCEP($event)"
+												@blur="obterEnderecoPeloCep()"
+												v-model="usuario.str_cep"> 
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												{{ erroCEP }}
+											</b-form-invalid-feedback> 
+										</b-col>
+									</b-row> -->
+									<!-- <b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="usuarioEndereco">Endereço</label>
+										</b-col>
+										<b-col sm="10">
+											<input   
+												type="text" maxlength="100"
+												class="form-control" 
+												id="registraEndereco"
+												size="sm"
+												placeholder="Informe o seu endereço"
+												@blur="validaCampo($event)"
+												v-model="usuario.str_endereco"> 
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira seu endereço
+											</b-form-invalid-feedback> 
+										</b-col>
+									</b-row> -->
+<!-- // -->
+<!-- === -->
+								<!-- CEP -->
+								<!-- === -->
+								<b-row  align-v="center"  class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="cep">
+												CEP
+											</label>
+										</b-col>
+										<b-col sm="10">
+											<input 
+												type="tel" maxlength="100"
+												class="form-control" 
+												id="cep"
+												size="sm"
+												placeholder="Informe o seu CEP" 
+												v-model="usuario.str_cep"
+												v-mask="'#####-###'"
+												@blur="viacep(usuario.str_cep)">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira seu CEP
+											</b-form-invalid-feedback> 
+										</b-col>
+									</b-row>
+	
+									<!-- ========== -->
+									<!-- LOGRADOURO -->
+									<!-- ========== -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoLogradouro">Logradouro</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoLogradouro"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_logradouro">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira o logradouro
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+	
+									<!-- =========== -->
+									<!-- COMPLEMENTO -->
+									<!-- =========== -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoComplemento">Complemento</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoComplemento"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_complemento">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												<!-- O complemento não é obrigatório -->
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+	
+									<!-- ====== -->
+									<!-- BAIRRO -->
+									<!-- ====== -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoBairro">Bairro</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoBairro"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_bairro">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira o bairro
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+	
+									<!-- ====== -->
+									<!-- CIDADE -->
+									<!-- ====== -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoLocalidade">Localidade</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoLocalidade"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_localidade">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira a localidade
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+	
+									<!-- == -->
+									<!-- UF -->
+									<!-- == -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoUf">UF</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoUf"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_uf">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira a UF
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+	
+									<!-- ======= -->
+									<!-- UNIDADE -->
+									<!-- ======= -->
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEnderecoUnidade">Unidade</label>
+										</b-col>
+										<b-col sm="10">
+											<input
+													type="text" maxlength="100"
+													class="form-control"
+													id="registraEnderecoUnidade"
+													size="sm"
+													placeholder="-"
+													v-model="usuario.str_unidade">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												<!-- A unidade não é obrigatória -->
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+
+<!-- \\ -->
+								</div>
+							</b-card-body>
+							<b-card-body class="mt-3">
+								<div>
+									<b-col>
+										<span><h4><i class="far fa-envelope"></i>  Contatos</h4></span>
+										<hr>
+									</b-col>
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEmail">E-mail </label>
+										</b-col>
+										<b-col sm="10">
+											<input
+												type="text" maxlength="100"
+												class="form-control" 
+												id="registraEmail"
+												size="sm"
+												autocomplete="off"
+												placeholder="Informe o seu e-mail"
+												@keyup="validaEmail($event)"
+												v-model="usuario.str_email"> 
+											</input>                    
+											<b-form-invalid-feedback id="input-live-feedback">
+												{{ erroEmail }}
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>											
+									<b-row  align-v="center" class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="registraEmail">Validação</label>
+										</b-col>
+										<b-col sm="10">
+											<b-button @click="enviarEmailValidacao()" variant="primary" block >Reenviar e-mail de validação</b-button>
+										</b-col>
+									</b-row>											
+								</div>
+							</b-card-body>
+							<b-card-body class="mt-3">
+								<div>
+									<b-col>
+										<span><h4><i class="far fa-lock"></i>  Dados de Segurança</h4></span>
+										<hr>
+									</b-col>
+									<b-row align-v="center"  class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="alteraSenha">
+												Senha
+											</label>
+										</b-col>
+										<b-col sm="10">
+											<input   
+												type="password" maxlength="100"
+												class="form-control" 
+												id="alteraSenha"
+												size="sm"
+												placeholder="Alterar a senha"
+												autocomplete="new-password"
+												@blur="checkLimparSenha"
+												v-model="seguranca.senha"> 
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												Insira uma senha
+											</b-form-invalid-feedback>  
+										</b-col>
+									</b-row>
+									<b-row align-v="center"  class="m-2">
+										<b-col sm="2" class="label-form">
+											<label for="validaSenha">
+												Repita a senha
+											</label>
+										</b-col>
+										<b-col sm="10">
+											<input   
+												type="password" maxlength="100"
+												class="form-control" 
+												id="confirmaSenha"
+												size="sm"
+												autocomplete="new-password"
+												placeholder="confirme sua senha"
+												:disabled="!seguranca.senha"
+												@keyup="validaSenha($event)"
+												v-model="seguranca.validacao">
+											</input>
+											<b-form-invalid-feedback id="input-live-feedback">
+												{{ erroSenha }}
+											</b-form-invalid-feedback>
+										</b-col>
+									</b-row>
+									<b-row align-v="center" class="m-2">
+										<b-col sm="12">
+											<div class="text-right">
+												<small>
+													<b>
+														<a href="#" class="firebrick" @click="local.deleteInfo.deleteModalIsOpen = true">
+															<i class="far fa-trash fa-fw"></i> Desejo deletar minha conta
+														</a>
+													</b>
+												</small>
+											</div>
+										</b-col>
+									</b-row>
+									<hr>
+									<b-row class="m-2 mt-3">
+										<b-col sm="9">
+											<div v-if="!isCamposInformados()">
+												<small class="firebrick"><b>* Preencha todos os campos.</b></small>
+											</div>
+										</b-col>
+										<b-col sm="3" class="text-right">
+											<b-button size="md" variant="primary" v-on:click="alterar" :disabled="!isFormValido()">
+												Alterar
+												<i class="far fa-check fa-fw" v-if="isFormValido()"></i>
+												<i class="far fa-ban fa-fw" v-if="!isFormValido()"></i>
+											</b-button>
+										</b-col>
+									</b-row>
+								</div>	
+							</b-card-body>
+						</b-card>
+					</b-col>
+				</b-row>
+			</template>
+
+			<!-- Modal de exclusão -->
+			<div class="hepta-overlay" v-if="local.deleteInfo.deleteModalIsOpen">
+				<div class="model">
+					<b-card no-body class="mb-1" name="pagamento">
+						<b-card-header header-tag="header" class="p-2 delete-header" role="tab">
+							Exclusão de conta
+						</b-card-header>
+						<b-card-body class="mt-1 p-2 border-0">
+							<b-row>
+								<b-col>
+									<div class="modal-body">
+										<div class="form-group text-center">
+											<input type="password" class="form-control" placeholder="Digite a sua senha" v-model="local.deleteInfo.checkSenha" />
+											<div class="font-weight-bold firebrick mt-2" style="font-size:0.8em">* Essa ação não poderá ser desfeita</div>
+										</div>
+										<hr>
+										<div class="form-group text-center">
+											<button class="btn btn-outline-secondary btn-sm" :disabled="false" @click="local.deleteInfo.deleteModalIsOpen = false">
+												Cancelar
+											</button>
+											&nbsp;
+											<button class="btn btn-danger btn-sm" :disabled="!local.deleteInfo.checkSenha" @click="deletarUsuarioLogado">
+												Deletar minha conta <i class="far fa-trash fa-fw"></i>
+											</button>
+										</div>
+									</div>
+								</b-col>
+							</b-row>
+						</b-card-body>
+					</b-card>
+				</div>
+			</div>
+
+		</section>
+	</b-container>
+
+	</section>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>			
+	<script src="../resources/js/utils.js"></script>
+	<script src="../resources/js/loaderContent.js"></script>
+	<script src="../resources/js/libs/vue.js"></script>
+	<script src="../resources/js/libs/bootstrap-vue.js"></script>
+	<script src="../resources/js/libs/axios.min.js"></script>
+    <script src="../resources/js/libs/httpVueLoader.js"></script>
+   	<script src="../resources/js/libs/vue-the-mask.js"></script>
+	<script src="../resources/js/dados.js"></script>
+</body>
+</html>

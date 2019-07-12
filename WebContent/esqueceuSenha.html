@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="resources/css/associados.css" rel="stylesheet">
+	<link href="resources/css/geral.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+		.separador{
+	        margin-top: 5px;
+	    }
+	    .separador hr{
+	        margin-top: 0px;
+	    }
+	    #lembrarSenha h2, #lembrarSenha h2{
+	        font-size: 2rem;
+	        line-height: 2rem;
+	        font-weight: 600;
+	        color: #008288;
+	        text-align: center;
+	        padding: 20px 0 10px;
+	    }
+		.calendarioAssociado{
+			max-width:300px;
+		}
+		.vc-popover-caret {
+	    content: "";
+	    position: absolute;
+	    display: block;
+	    width: 12px;
+	    height: 12px;
+	    border-top: inherit;
+	    border-left: inherit;
+	    background: inherit;
+	    z-index: -1;
+	    }
+	    .tooltip-inner {
+	        max-width: 200px;
+	        padding: 0.25rem 0.5rem;
+	        color: #BBD2D9;
+	        text-align: center;
+	        background-color: #FFF;
+	        border-radius: 0.25rem;
+	    }
+		.card-body {
+	        padding: 0.25rem;
+	        text-align: left;
+	        color: #008288;
+	    }
+	    .card-header, .card-footer {
+	        background: #00898f;
+	        border-color: #1d6981;
+	        font-size: 1.5rem;
+	        line-height: 1.0;
+	        text-align: left;
+	        color: #fff;
+	    }
+	    .card-footer {
+	        font-size: 1.2rem;
+	        line-height: 1.0;
+	        font-weight: 400;
+		}
+		.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+		
+	</style>
+</head>
+
+<body class="text-center">
+   <!-- -- -->
+   <div id="menuSuperior">
+		<header-cm  
+			caminho-relativo=""
+			pagina-privada="false">
+		</header-cm>
+	</div>
+	<!-- -->
+	<div id="lembrarSenha">
+        <b-container id="esqueciSenha" v-if="!isCriarNovaSenha">
+            <b-row align-h="center" align-h="center">
+                <b-col cols="12" md="8"><h2>Esqueceu sua senha? <br/>Insira seu e-mail para recuperá-la.</h2></b-col>
+                <b-col cols="12" md="8">
+
+                    <b-alert
+                            :show="!!mensagem.titulo"
+                            dismissible
+                            class="text-left"
+                            :class="mensagem.estilo"
+                            @dismissed="mensagem.titulo = undefined">
+
+                        <div>
+                            <b-row>
+                                <b-col cols="2" class="text-center">
+                                    <b>
+                                        {{ mensagem.titulo }}
+                                    </b>
+                                </b-col>
+                                <b-col class="text-left">
+                                    {{ mensagem.texto }}
+                                </b-col>
+                            </b-row>
+
+                        </div>
+
+                    </b-alert>
+
+                    <b-card no-body class="mb-1" name="pagamento" v-if="!mensagem.titulo">
+                        <b-card-header header-tag="header" class="p-2" role="tab">
+                           Recuperar Senha
+                        </b-card-header>
+                        <b-card-body>
+                            <b-alert 
+                                :show="alertaLembrarSenha" 
+                                :variant="tipoAlertaLembrarSenha" 
+                                :dismissible='fecharLembrarSenha'>
+                                {{mensagemLembrarSenha}}
+                            </b-alert>
+                        </b-card-body>
+
+                        <b-card-body>
+                            <div style="text-align:center">
+                                <div id="loaderLembrar" role="status" class="aqui"></div>
+                            </div>
+                            <b-row align-v="center" class="mb-2" style="padding: 5px 25px">
+                                <b-col sm="2" class="label-form">
+                                    <label for="email">E-mail</label>
+                                </b-col>
+                                <b-col sm="10">
+                                    <input
+                                        type="email" maxlength="100"
+                                        class="form-control form-control "
+                                        id="cpf"
+                                        placeholder="Informe seu E-mail"
+                                        v-model="recuperacao.email"
+                                        @keyup="validaEmail($event)"
+                                        required autofocus>
+                                    </input>
+                                    <b-form-invalid-feedback id="input-live-feedback">
+                                        {{erroEmail}}
+                                    </b-form-invalid-feedback>
+                                </b-col>
+                            </b-row>
+                            <b-row align-v="center" class="mb-2" style="padding:0 25px">
+                                <b-col sm="2" class="label-form">
+                                </b-col>
+                                <b-col sm="10">
+                                    <b-button v-if="!loading"
+                                              variant="primary"
+                                              @click="enviarEmailDeRecuperacao"
+                                              :disabled="!emailValido">
+                                        Recuperar senha
+                                    </b-button>
+                                    <b-button v-if="loading"
+                                              variant="primary"
+                                              :disabled="true">
+                                        Aguarde...
+                                    </b-button>
+                                </b-col>
+                            </b-row>
+                        </b-card-body>
+                    </b-card>
+                </b-col>
+            </b-row>
+        </b-container>
+        
+<!--        <b-container id="perguntasSenha"> -->
+<!--            <b-row align-h="center" align-h="center">-->
+<!--                <b-col cols="12" md="8"><h2>Responda às perguntas para recuperar a senha.</h2></b-col>-->
+<!--                <b-col cols="12" md="8">-->
+<!--                    <b-card no-body class="mb-1" name="pagamento">-->
+<!--                        <b-card-header header-tag="header" class="p-2" role="tab">-->
+<!--                            Recuperar senha-->
+<!--                        </b-card-header>-->
+<!--                        <b-card-body>-->
+<!--                            <b-alert -->
+<!--                                :show="alertaPerguntaSenha" -->
+<!--                                :variant="tipoAlertaPerguntaSenha" -->
+<!--                                :dismissible='fecharPerguntaSenha'>-->
+<!--                                {{mensagemPerguntaSenha}}-->
+<!--                            </b-alert>-->
+<!--                        </b-card-body>-->
+<!--                        <b-card-body>-->
+<!--                            <div style="text-align:center">-->
+<!--                                <div id="loaderPerguntaSenha" role="status" class="aqui"></div>-->
+<!--                            </div>-->
+<!--                            <b-row align-v="center" class="mb-2">-->
+<!--                                <b-col sm="12" class="label-form">-->
+<!--                                    <label for="perguntaCPF">Quais são os 3 primeiro números do seu CPF </label>-->
+<!--                                </b-col>-->
+<!--                                <b-col sm="11">-->
+<!--                                    <input  -->
+<!--                                        type="text" maxlength="100"-->
+<!--                                        class="form-control mb-2" -->
+<!--                                        id="perguntaCPF"-->
+<!--                                        placeholder="Responda à pergunta"-->
+<!--                                        required-->
+<!--                                        v-model="pergunta.cpf"> -->
+<!--                                    </input>-->
+<!--                                    <b-form-invalid-feedback id="input-live-feedback">-->
+<!--                                        {{erroPerguntaCPF}}-->
+<!--                                    </b-form-invalid-feedback>  -->
+<!--                                </b-col>-->
+<!--                            </b-row>-->
+<!--                            <b-row align-v="center" class="mb-2">-->
+<!--                                <b-col sm="12" class="label-form">-->
+<!--                                    <label for="perguntaAniversario">Qual o dia do seu aniversário?</label>-->
+<!--                                </b-col>-->
+<!--                                <b-col sm="12">-->
+<!--                                    <input  -->
+<!--                                        type="text" maxlength="100"-->
+<!--                                        class="form-control mb-2" -->
+<!--                                        id="perguntaAniversario"-->
+<!--                                        size="sm"-->
+<!--                                        placeholder="Responda à pergunta"-->
+<!--                                        required-->
+<!--                                        v-model="pergunta.aniversario"> -->
+<!--                                    </input>-->
+<!--                                    <b-form-invalid-feedback id="input-live-feedback">-->
+<!--                                        {{erroSenha2}}-->
+<!--                                    </b-form-invalid-feedback>    -->
+<!--                                </b-col>-->
+<!--                            </b-row>-->
+<!--                            <b-row align-v="center" class="mb-2">-->
+<!--                                <b-col sm="12">-->
+<!--                                    <b-button variant="primary" @click="validaCriarSenha(seguranca.senha)">-->
+<!--                                        Criar nova senha-->
+<!--                                    </b-button>-->
+<!--                                </b-col>-->
+<!--                            </b-row>  -->
+<!--                            <b-row align-v="center" class="mb-2">-->
+<!--                                <b-col sm="12" class="label-form">-->
+<!--                                    <label for="emailAniversario">Insira um em-mail válido para receber a senha.</label>-->
+<!--                                </b-col>-->
+<!--                                <b-col sm="12">-->
+<!--                                    <input  -->
+<!--                                        type="email" maxlength="100"-->
+<!--                                        class="form-control mb-2" -->
+<!--                                        id="emailAniversario"-->
+<!--                                        size="sm"-->
+<!--                                        placeholder="Insira um e-mail válido"-->
+<!--                                        required-->
+<!--                                        v-model="pergunta.email"> -->
+<!--                                    </input>-->
+<!--                                    <b-form-invalid-feedback id="input-live-feedback">-->
+<!--                                        {{erroSenha2}}-->
+<!--                                    </b-form-invalid-feedback>    -->
+<!--                                </b-col>-->
+<!--                            </b-row>                          -->
+<!--                        </b-card-body>-->
+<!--                    </b-card>-->
+<!--                </b-col>-->
+<!--            </b-row>-->
+<!--        </b-container>-->
+<!--        <b-container id="resetarConta"> -->
+<!--            <b-row align-h="center" align-h="center">-->
+<!--                <b-col cols="12" md="8"><h2>Não foi possível recuperar a senha. </h2></b-col>-->
+<!--                <b-col cols="12" md="8">-->
+<!--                    <b-card no-body class="mb-1" name="pagamento">-->
+<!--                        <b-card-header header-tag="header" class="p-2" role="tab">-->
+<!--                            Recadastrar usuário-->
+<!--                        </b-card-header>-->
+<!--                        <b-card-body>-->
+<!--                            <b-alert show variant="warning" dismissible>-->
+<!--                                Por favor, tente recadastrar o usuário ou entre em contato com nosso suporte técnico.  -->
+<!--                            </b-alert>-->
+<!--                            <hr>-->
+<!--                            <b-button variant="primary">-->
+<!--                                Cadastrar usuário-->
+<!--                            </b-button>                                          -->
+<!--                        </b-card-body>-->
+<!--                    </b-card>-->
+<!--                </b-col>-->
+<!--            </b-row>-->
+<!--        </b-container>-->
+        <b-container id="verificarSenha" v-if="isCriarNovaSenha && !isSenhaAlterada">
+            <b-row align-h="center" align-h="center">
+                <b-col cols="12" md="8"><h2>Crie uma nova senha.</h2></b-col>
+                <b-col cols="12" md="8">
+                    <b-alert
+                            :show="!!mensagem.alteracao.titulo"
+                            dismissible
+                            class="text-left"
+                            :class="mensagem.alteracao.estilo"
+                            @dismissed="mensagem.alteracao.titulo = undefined">
+
+                        <div>
+                            <b-row>
+                                <b-col cols="2" class="text-center">
+                                    <b>
+                                        {{ mensagem.alteracao.titulo }}
+                                    </b>
+                                </b-col>
+                                <b-col class="text-left">
+                                    {{ mensagem.alteracao.texto }}
+                                </b-col>
+                            </b-row>
+
+                        </div>
+
+                    </b-alert>
+                </b-col>
+                <b-col cols="12" md="8">
+                    <b-card no-body class="mb-1" name="pagamento">
+                        <b-card-header header-tag="header" class="p-2" role="tab">
+                            Criar nova senha
+                        </b-card-header>
+                        <b-card-body>
+                            <b-alert
+                                :show="alertaLembrarSenha"
+                                :variant="tipoAlertaLembrarSenha"
+                                :dismissible='fecharLembrarSenha'>
+                                {{mensagemLembrarSenha}}
+                            </b-alert>
+                        </b-card-body>
+                        <b-card-body>
+                            <div style="text-align:center">
+                                <div id="loaderLembrar" role="status" class="aqui"></div>
+                            </div>
+                            <b-row align-v="center" style="padding: 5px 25px">
+                                <b-col sm="2" class="label-form">
+                                    <label for="registraSenha">Senha </label>
+                                </b-col>
+                                <b-col sm="10">
+                                    <input
+                                        type="password" maxlength="100"
+                                        class="form-control"
+                                        id="registraSenha"
+                                        size="sm"
+                                        placeholder="Informe sua senha"
+                                        required
+                                        @keyup="checkInputSenha($event)"
+                                        autocomplete="new-password"
+                                        v-model="validacao.senha" />
+                                    <b-form-invalid-feedback id="input-live-feedback">
+                                        {{ validacao.erroSenha }}
+                                    </b-form-invalid-feedback>
+                                </b-col>
+                                <b-col sm="2" class="label-form mt-2">
+                                    <label for="registraValidacao">Verifica senha </label>
+                                </b-col>
+                                <b-col sm="10" class="mt-2">
+                                    <input
+                                        type="password" maxlength="100"
+                                        class="form-control"
+                                        id="registraValidacao"
+                                        size="sm"
+                                        placeholder="Informe sua senha"
+                                        required
+                                        @keyup="checkInputConfirmacao($event)"
+                                        autocomplete="new-password"
+                                        v-model="validacao.confirmacao" />
+                                    <b-form-invalid-feedback id="input-live-feedback">
+                                        {{ validacao.erroSenha2 }}
+                                    </b-form-invalid-feedback>
+                                </b-col>
+                            </b-row>
+                            <b-row align-v="center" class="mb-2" style="padding: 5px 25px">
+                                    <b-col sm="2" class="label-form">
+                                    </b-col>
+                                    <b-col sm="10">
+                                        <b-button v-if="!loading"
+                                                  variant="primary"
+                                                  :disabled="(!validacao.senha || !validacao.confirmacao) || (validacao.senha != validacao.confirmacao)"
+                                                  @click="criarNovaSenha">
+                                            Criar nova senha
+                                        </b-button>
+                                        <b-button v-else
+                                                  variant="primary"
+                                                  :disabled="true">
+                                            Aguarde...
+                                        </b-button>
+                                    </b-col>
+                                </b-row>
+                        </b-card-body>
+                    </b-card>
+                </b-col>
+            </b-row>
+        </b-container>
+
+        <b-container id="verificarSenha" v-if="isSenhaAlterada">
+            <b-row align-h="center" align-h="center">
+                <b-col cols="12" md="8"><h2>Senha alterada com sucesso!</h2></b-col>
+                <b-col cols="12" md="8">
+                    <div>
+                        <a href="./registro.html" class="btn btn-outline-info btn-lg">
+                            Realizar login
+                        </a>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
+
+	</div>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>
+			
+	<script src="resources/js/utils.js"></script>
+	<script src="resources/js/loaderContent.js"></script>
+	<script src="resources/js/libs/vue.js"></script>
+	<script src="resources/js/libs/bootstrap-vue.js"></script>
+	<script src="resources/js/libs/axios.min.js"></script>
+    <script src="resources/js/libs/httpVueLoader.js"></script>
+    <script src="resources/js/libs/vue-the-mask.js"></script>
+
+    <script>
+    
+    var registro = new Vue({
+    el : '#lembrarSenha',
+    components: {
+        'login': httpVueLoader('resources/components/login.vue'), 
+        'cadastro': httpVueLoader('resources/components/cadastro.vue'), 
+    },
+    data: {
+
+        // Mensagens
+        mensagem: {
+            global: undefined,
+            estilo: undefined,
+            titulo: undefined,
+            texto: undefined,
+            dismissCountDown: 0,
+            dismissSecs: 10,
+            alteracao: {
+                titulo: undefined,
+                texto: undefined
+            }
+        },
+
+        // Objeto de recuperação
+        recuperacao: {
+            email: undefined,
+        },
+
+        // Objeto de validação de senha
+        validacao: {
+            senha: undefined,
+            confirmacao: undefined,
+            erroSenha: undefined,
+            erroSenha2: undefined
+        },
+
+        emailValido: false,
+
+        teste: "TESTE",
+        cadastrando : false,
+        alertaLembrarSenha: false,
+        tipoAlertaLembrarSenha : 'success',
+        mensagemLembrarSenha :'Alert! Mensagem para alertas.',
+        fecharLembrarSenha: true,
+        erroCPF : "Insira seu CPF",
+        erroSenha : "Informe uma senha segura",
+        erroSenha2 : "Repita a senha",
+        alertaPerguntaSenha: false, 
+        tipoAlertaPerguntaSenha: 'success',
+        fecharPerguntaSenha:true,
+        mensagemPerguntaSenha: "",
+        dados:{
+            senha:""
+        },
+        seguranca: {
+            senha  	  : '',
+            validacao : ''
+        },
+        pergunta: {
+            cpf:"",
+            aniversario:""            
+        },
+        erroEmail: undefined,
+        erroSenha: undefined,
+        loading: undefined,
+        isCriarNovaSenha: undefined,
+        isSenhaAlterada: undefined
+    },
+    methods: {
+        toggleCadastro(obj){
+            const vm = this;
+            vm.cadastrando = obj;
+        },
+
+        /**
+         * Solicita envio de email de recuperação de senha
+         */
+        enviarEmailDeRecuperacao() {
+
+            const vm = this;
+
+            vm.loading = true;
+
+            axios
+                .post('./rs/cadastro/enviar-email-recuperacao', vm.recuperacao.email)
+                .then(function(response) {
+                    vm.showAlert();
+                    vm.displayMensagemSucesso("Sucesso", response.data);
+                })
+                .catch(function(err) {
+                    vm.showAlert();
+                    vm.displayMensagemErro("Erro", "Erro durante a recuperação de senha");
+                })
+                .finally(function() {
+                    vm.loading = false;
+                });
+
+        },
+
+        /**
+         * Apresenta mensagem
+         *
+         * @param titulo
+         *      titulo da mensagem
+         * @param texto
+         *      texto da mensagem
+         * @param estilo
+         *      estilo da mensagem
+         * @private
+         */
+        _displayMensagem(titulo, texto, estilo) {
+            this.mensagem.titulo = titulo;
+            this.mensagem.texto = texto;
+            this.mensagem.estilo = estilo;
+        },
+
+        /**
+         * Apresenta mensagem de sucesso
+         *
+         * @param titulo
+         *      titulo da mensagem
+         * @param texto
+         *      texto da mensagem
+         */
+        displayMensagemSucesso(titulo, texto) {
+            this._displayMensagem(titulo, texto, 'alert-success');
+        },
+
+        /**
+         * Apresenta mensagem de erro
+         * @param titulo
+         *      titulo da mensagem
+         * @param texto
+         *      texto da mensagem
+         */
+        displayMensagemErro(titulo, texto) {
+            this._displayMensagem(titulo, texto, 'alert-danger');
+        },
+
+        countDownChanged(dismissCountDown) {
+            this.mensagem.dismissCountDown = dismissCountDown
+        },
+
+        showAlert() {
+            this.mensagem.dismissCountDown = this.mensagem.dismissSecs
+        },
+
+        validaEmail(event) {
+            const vm = this;
+            let hasError = false;
+            let email    = event.target.value;
+            let reg      = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+            if (!event.target.value) {
+                vm.erroEmail = 'Insira um e-mail';
+                hasError = true;
+            }
+
+            if (event.target.value && !reg.test(email)) {
+                vm.erroEmail = 'Insira um e-mail válido (ex: meu@email.com)';
+                hasError = true;
+            }
+
+            if (hasError) {
+                event.target.classList.add('is-invalid');
+                vm.emailValido = false;
+            }
+            else {
+                event.target.classList.remove('is-invalid');
+                vm.emailValido = true;
+            }
+        },
+
+        checkInputSenha(event) {
+
+            if (!this.validacao.senha) {
+                this.validacao.erroSenha = 'A nova senha precisa ser informada.'
+                event.target.classList.add('is-invalid');
+            }
+            else {
+                this.validacao.erroSenha = undefined
+                event.target.classList.remove('is-invalid');
+            }
+        },
+
+        checkInputConfirmacao(event) {
+
+            if (this.validacao.senha != this.validacao.confirmacao) {
+                this.validacao.erroSenha2 = 'As senhas não coincidem';
+                event.target.classList.add('is-invalid');
+            }
+            else {
+                this.validacao.erroSenha2 = undefined
+                event.target.classList.remove('is-invalid');
+            }
+        },
+
+        criarNovaSenha() {
+
+            const vm = this;
+
+            let isSenha       = vm.validacao.senha;
+            let isConfirmacao = vm.validacao.confirmacao;
+
+            if (isSenha == isConfirmacao && this.isParamToken()) {
+
+                let request = {
+                    novaSenha: vm.validacao.senha,
+                    token: vm.getParamToken()
+                }
+
+                vm.loading = true;
+
+                axios
+                    .put('./rs/cadastro/nova-senha', request)
+                    .then(function(response) {
+                        vm.mensagem.alteracao.titulo = 'Sucesso';
+                        vm.mensagem.alteracao.texto  = 'Senha alterada com sucesso';
+                        vm.validacao                 = {};
+                        vm.loading = false;
+                        vm.isSenhaAlterada = true;
+
+                    })
+                    .catch(function(err) {
+                        vm.mensagem.alteracao.titulo = 'Erro';
+                        vm.mensagem.alteracao.texto  = 'Não foi possível cadastrar a nova senha';
+                    });
+            }
+        },
+
+        isParamToken() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const token     = urlParams.get('token');
+
+            if (token) {
+                return true;
+            }
+
+            return false;
+        },
+
+        getParamToken() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const token     = urlParams.get('token');
+
+            return token;
+        }
+
+    },
+    created: function() {
+        const vm = this;
+        let aux = queryParameters(document.location.search);
+        if (aux.cadastrando !== undefined){
+            vm.cadastrando = aux.cadastrando[0] === 'true' ? true : false;
+        }
+    },
+    mounted: function() {
+
+        if (this.isParamToken()) {
+            this.isCriarNovaSenha = true;
+        }
+    }
+});
+
+var menuSuperior = new Vue({
+    el : '#menuSuperior',
+    components: {
+        'header-cm': httpVueLoader('resources/components/header-cm.vue')
+    },
+    data: {
+
+    }
+});
+
+var rodape = new Vue({
+    el : '#rodape',
+    components: {
+        'footer-cm': httpVueLoader('resources/components/footer-cm.vue')
+    },
+    data: {
+    }
+});
+</script>
+</body>
+
+</html>

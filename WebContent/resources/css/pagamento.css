@@ -1,0 +1,71 @@
+.pagamentos {
+    background-image: url(../images/pagamentos.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.pagamentos-amex {
+    width: 60px;
+    height: 40px;
+    background-position: -5px -5px;
+}
+
+.pagamentos-barcode {
+    width: 60px;
+    height: 40px;
+    background-position: -75px -5px;
+}
+
+.pagamentos-bb {
+    width: 60px;
+    height: 40px;
+    background-position: -5px -55px;
+}
+
+.pagamentos-bradesco {
+    width: 60px;
+    height: 40px;
+    background-position: -75px -55px;
+}
+
+.pagamentos-caixa {
+    width: 60px;
+    height: 40px;
+    background-position: -5px -105px;
+}
+
+.pagamentos-elo {
+    width: 60px;
+    height: 40px;
+    background-position: -75px -105px;
+}
+
+.pagamentos-hiper {
+    width: 60px;
+    height: 40px;
+    background-position: -145px -5px;
+}
+
+.pagamentos-itau {
+    width: 60px;
+    height: 40px;
+    background-position: -145px -55px;
+}
+
+.pagamentos-mastercard {
+    width: 60px;
+    height: 40px;
+    background-position: -145px -105px;
+}
+
+.pagamentos-santander {
+    width: 60px;
+    height: 40px;
+    background-position: -5px -155px;
+}
+
+.pagamentos-visa {
+    width: 60px;
+    height: 40px;
+    background-position: -75px -155px;
+}

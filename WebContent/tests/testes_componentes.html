@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Testes de componentes</title>
+	<link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		[v-cloak] > * { display:none !important; }
+		.componentes{
+			display:none;
+		}
+		.tabela {
+    		border-radius: .25rem;
+			border-top: 1px solid rgba(0,0,0,.125);
+			border-left: 1px solid rgba(0,0,0,.125);
+		}
+		.tabela div{
+			border-radius: .25rem;
+			border-bottom: 1px solid rgba(0,0,0,.125);
+			border-right: 1px solid rgba(0,0,0,.125);
+		}
+		.tabela-header{
+			font-weight: bold;
+		}
+		.icone-teste{
+			font-size:32px;
+			float:left;
+		}
+		.no-padding .card-header{
+			padding:0px!important;
+		}
+		.card-header{
+			padding:5px!important;
+		}
+		.card-body{
+			padding:0px;
+		}
+		#testes .card-footer{
+			padding:0px!important;
+		}
+	</style>
+</head>
+<body>
+	<div id="testes" style="text-align: center!important;" class="container" v-cloak>
+		<multi-select
+			:valores="multiSelect.valores"
+			:selecionados="multiSelect.selecionados"
+			:placeholder="'placeholder'"
+			:max-height="'200px'">
+		</multi-select>
+	</div>
+
+	<!-- UTILS -->
+	<script type="text/javascript">
+		_testesRodando = true;
+	</script>
+    <script src="../resources/js/utils.js"></script>
+    <script src="../resources/js/loader.js"></script>
+	<!-- LIBS -->
+    <script src="../resources/js/libs/vue.js"></script>
+    <script src="../resources/js/libs/vue-the-mask.js"></script>
+    <script src="../resources/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="../resources/js/libs/bootstrap-vue.js"></script>
+    <script src="../resources/js/libs/httpVueLoader.js"></script>
+    <script src="../resources/js/libs/axios.min.js"></script>
+    <script src="testes_componentes.js"></script>
+</body>
+</html>

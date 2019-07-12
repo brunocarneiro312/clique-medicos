@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="resources/css/associados.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+	.calendarioAssociado{
+		max-width:300px;
+	}
+	.vc-popover-caret {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-top: inherit;
+    border-left: inherit;
+    background: inherit;
+    z-index: -1;
+}
+.tooltip-inner {
+    max-width: 200px;
+    padding: 0.25rem 0.5rem;
+    color: #BBD2D9;
+    text-align: center;
+    background-color: #FFF;
+    border-radius: 0.25rem;
+}
+.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+	</style>
+</head>
+
+<body class="text-center">
+   <!-- -- -->
+   <div id="menuSuperior">
+		<header-cm  caminho-relativo=""></header-cm>
+	</div>
+	<!-- -->
+	<section id="appAssociados" v-cloak>
+		<b-container class="">
+			<b-row>
+				<div id="resumoConsulta">
+					<h5>Erro</h5>
+				</div>
+			</b-row>
+			
+		</b-container>
+	</section>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>
+			
+	<script src="resources/js/utils.js"></script>
+	<script src="resources/js/loader.js"></script>
+	<script src="resources/js/libs/vue.js"></script>
+	<script src="resources/js/libs/bootstrap-vue.js"></script>
+	<script src="resources/js/libs/axios.min.js"></script>
+    <script src="resources/js/libs/httpVueLoader.js"></script>
+</body>
+
+</html>

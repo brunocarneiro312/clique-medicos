@@ -1,0 +1,103 @@
+@import "openSans.css";
+@import "vcloak.css";
+
+body {
+    font-family: 'Open Sans' !important;
+    line-height: 1.15;
+    margin-top: 80px;
+}
+
+[v-cloak] {
+    display: block;
+    padding: 50px 0;
+}
+
+#menuSuperior[v-cloak] {
+    display: block;    
+    background-color: #BBD2D9 !important;
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+	height:60px;
+}
+#appIndex[v-cloak] {
+    padding: 0rem 1rem 0rem;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+	height:450px;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+[v-cloak]:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+/*     top: 50%; */
+/*     left: 50%; */
+    width: 50px;
+    height: 50px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #333;
+    animation: spinner 0.6s linear infinite;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#menuSuperior[v-cloak]:before {
+    margin-top: -10px;
+}
+#appIndex[v-cloak]:before {
+    margin-top: 50px;
+}
+#menuSuperior[v-cloak]>* {
+    display: none;
+}
+#appIndex[v-cloak]>* {
+    display: none;
+}
+[v-cloak]>* {
+    display: none;
+}
+.esconde {
+    display: none;
+}
+.mostra {
+    display: block;
+}
+
+.loaderManual{
+    content: "" !important;
+    box-sizing: border-box!important;
+    /* position: absolute!important;
+    top: 69%!important;
+    left: 46%!important; */
+    width: 50px!important;
+    height: 50px!important;
+    /* margin-top: -10px!important;
+    margin-left: -10px!important; */
+    margin: 0 auto;
+    border-radius: 50%!important;
+    border: 2px solid #ccc!important;
+    border-top-color: #333!important;
+    animation: spinner 0.6s linear infinite!important;
+    text-indent: 100%!important;
+    white-space: nowrap!important;
+    overflow: hidden!important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(0, 137, 143);
+font-weight: bold;
+}

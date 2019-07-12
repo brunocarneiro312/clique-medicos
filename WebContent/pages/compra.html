@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>CliqueMédicos</title>
+
+<!-- Principal CSS do Bootstrap -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#BBD2D9">
+
+<!---->
+<link href="../resources/css/bootstrap-vue.css" rel="stylesheet">
+<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="../resources/css/all.css" rel="stylesheet"> <!--load all styles -->
+<link href="../resources/css/geral.css" rel="stylesheet">
+
+
+<!-- Add to home screen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+
+<!---->
+<link rel="apple-touch-icon" href="../resources/images/favico/apple-icon-152x152.png">
+
+<!---->
+<link rel="icon" type="image/png" sizes="32x32" href="../resources/images/favico/favicon-16x16.png">
+
+<!---->
+<meta name="msapplication-TileImage" content="../resources/images/favico/ms-icon-144x144.png">
+<meta name="msapplication-TileColor" content="#BBD2D9">
+
+<link href="../resources/css/vcloak.css" rel="stylesheet">
+<style scoped>
+    .btn {
+        /* text-transform: uppercase; */
+        /* padding: 10px;
+        margin: 10px 0; */
+    }
+    .btn-warning {
+        background: #c48a27;
+        border: 1px solid #e5a230;
+        color: white;
+    }
+    .btn-warning:hover {
+        background: #e5a230;
+        border: 1px solid #e5a230;
+        color: white;
+    }
+    .separador{
+        margin-top: 5px;
+    }
+    .separador hr{
+        margin-top: 0px;
+    }
+    #appCompra h2{
+        font-size: 2rem;
+        line-height: 2rem;
+        font-weight: 600;
+        color: #008288;
+        text-align: center;
+        padding: 20px 0 10px;
+    }
+    .card-body {
+        padding: 0.25rem;
+        text-align: left;
+        color: #008288;
+    }
+    .card-header, .card-footer {
+        background: #00898f;
+        border-color: #1d6981;
+        font-size: 1.5rem;
+        line-height: 1.0;
+        font-weight: 600;
+        text-align: left;
+        color: #fff;
+        padding: 15px !important;
+    }
+    .card-footer {
+        font-size: 1.2rem;
+        line-height: 1.0;
+        font-weight: 400;
+    }
+
+    .dataConsulta{
+        text-transform: uppercase;
+    }
+    .totalConsulta{
+        text-align: right;
+    }
+    .bg-cliqueMedicos {
+    	background-color: #BBD2D9 !important;
+    }
+
+    #logo_Cliquemedicos_nav{
+        height: 55px;
+        margin-top: -5px;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid #6c757d !important;
+    }
+    .conferirAgendamento {   
+        background-color: #bbd2d950 !important;
+    }
+    .tituloAgendamento hr, #dadoPessoaisCompra hr{
+        margin-top: 0.1rem !important;
+        margin-bottom: 0rem !important;
+    }
+    .container-boleto {
+        background: lime;
+        margin: 15px;
+        padding: 15px;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: 0 6px 11px 0px #ddd;
+        -moz-box-shadow: 0 6px 11px 0px #ddd;
+        box-shadow: 0 6px 11px 0px #ddd;
+    }
+    #tabPagamentos{
+        border: none;
+    }
+    #tabPagamentos .card-header{
+        background: none;
+        border: none;
+        /* border-bottom:1px #6c757d solid; */
+    }
+    #tabPagamentos .card-header-pills {
+        margin-right: 0.1rem !important;
+        margin-left: 0.1rem !important;
+    }  
+    #pagamentoCartao, #pagamentoBoleto {
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    } 
+    #pagamentoCartao{
+        border-top-left-radius: 0;
+        margin: -1px 0px 0px 2px !important;
+    } 
+    #pagamentoBoleto{
+        border-top-left-radius: 0;
+        margin: -1px 0px 0px 2px !important;  
+    }
+    #tabPagamentos .nav-pills .nav-link.active, #tabPagamentos .nav-pills .show>.nav-link {
+        border-bottom-left-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+
+    }
+    #infoPagamentos .card {
+        border: none!important;
+    }
+</style>
+</head>
+
+<body class="text-center bg">
+    <!-- -- -->
+    <div id="menuSuperior">
+        <header-cm  
+            caminho-relativo="../"
+            pagina-privada="true">
+        </header-cm>
+    </div>
+    <!-- -- -->
+    <div id="appCompra" v-cloak>
+        <b-container>
+            <h2 v-if="!sucessoPagamento">Vamos finalizar o servico!</h2>
+            <h2 v-else>Compra finalizada!</h2>
+                <b-row align-h="center">
+                    <b-col cols="12" md="8">
+                        <b-card no-body class="mb-1" name="pagamento">
+                            <b-card-header header-tag="header" class="p-3" role="tab">
+                                Pagamento
+                            </b-card-header>
+                            <b-card-body class="p-3">
+                                <div class="tituloAgendamento">
+                                    <span><h4>Confira seu servico</h4></span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <b-container class="conferirAgendamento">
+                                        <b-row align-v="center"  class="mb-2 pt-2"> 
+                                            <b-col cols="12" md="8">      
+                                                <div class="especialidadeAssociado">
+                                                    <i class="sistema sistemas-especialidade-icon mr-2" style="float: left;"></i>
+                                                    <h4>{{filtro.especialidade.nome}}</h4>
+                                                </div>
+                                            </b-col>
+                                        </b-row>
+                                        <b-row align-v="center" > 
+                                            <b-col cols="12">
+                                                <div class="nomeAssociado">
+                                                    <i class="sistema sistema-associado-icon pr3 mr-2" style="float: left;"></i>
+                                                    <h4>{{associado.nomePrestador}}</h4>
+                                                </div>
+                                            </b-col>
+                                        </b-row>
+                                        <b-row align-v="center"  class="ml-4"> 
+                                                <b-col cols="12">
+                                                    <div class="enderecoAssociado">
+                                                        <b>{{associado.nomeCredenciado}}</b>
+                                                    </div>
+                                                </b-col>
+                                        </b-row>
+                                        <b-row align-v="center"  class="ml-4"> 
+                                            <b-col cols="12">
+                                                <div class="enderecoAssociado">
+                                                    {{associado.bairrodesc}}, {{associado.endereco}}
+                                                </div>
+                                            </b-col>
+                                        </b-row>
+                                        <b-row align-v="center"  class="row mt-3"> 
+                                            <b-col cols="12">
+                                                <div class="dataConsulta">
+                                                    <i class="sistema sistema-agenda-icon mr-2" style="float: left;"></i>
+                                                    <strong>{{dataString}}</strong>
+                                                </div>
+                                            </b-col>
+                                        </b-row>
+                                        <b-row  align-v="center" class=" mt-2">                        
+                                            <b-col>
+                                                <h4>Total R${{precoConsulta}},00</strong></h4>
+                                            </b-col>   
+                                        </b-row> 
+                                    </b-container>
+                                </div>
+                                <!-- APAGAR ISSO QUANDO TIVERMOS OS METODOS DE PAGAMENTO -->
+                                <div v-if="sucessoPagamento" class="mt-3">
+                                    <b-alert variant="success" show>
+                                        <h3>Sucesso!</h3><span>Sua consulta foi Solicitada!</span>
+                                        <!-- <span>Seu número de voucher é <b>{{voucher}}</b></span> -->
+                                    </b-alert>
+                                </div>
+                                <div v-else>                        
+                                    <div class="text-center">
+                                        <div id="loaderCompra" role="status"></div>
+                                        <div v-if="aguardePagamento">
+                                        <b-alert show>
+                                            <h3>Aguarde</h3>
+                                            <span>Seu pagamento está sendo registrado.</span>
+                                            </b-alert>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <b-alert  v-if="erroPagamento" variant="warning" show dismissible>
+                                            <h3>Erro!</h3><span v-html="mensagemErro"></span>
+                                        </b-alert>
+                                    </div>
+                                    <div id="dadoPessoaisCompra" v-if="tipoErro !== 401">
+                                        <div class="mt-3">                                        
+                                            <span><h4>Escolha a forma de pagamento</h4></span>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div v-else>
+                                        <b-button   id="botaoNovaBusca" 
+                                        role="status" aria-hidden="true"
+                                        type="button" aria-label="Add" 
+                                        class="btn btn-success btn-sm col-12 pagar" 
+                                        style="margin-top: 20px;"
+                                        v-on:click="voltarIndex()">
+                                            Procurar outra consulta.
+                                        </b-button>
+                                    </div>
+                                <!-- Ações -->
+                                <b-card no-body id="tabPagamentos" class="mt-3">
+                                    <b-tabs pills card>
+                                        <b-tab active="true" id="pagamentoCartao" >
+                                        <!-- <b-tab active="true" id="pagamentoCartao" :disabled="valeCompra" > -->
+                                            <template slot="title">
+                                                <h5> <i class="far fa-credit-card fa-fw"></i> Crédito</h5>
+                                            </template>
+                                            <b-card-text>
+                                                <compra-cartao v-on:pagar-cartao="pagarCartao"></compra-cartao>
+                                            </b-card-text>
+                                        </b-tab>
+                                        <b-tab id="pagamentoBoleto">
+                                        <!-- <b-tab id="pagamentoBoleto" :disabled="valeCompra"> -->
+                                            <template slot="title">
+                                                <h5><i class="far fa-barcode"></i> Boleto</h5>
+                                            </template>
+                                            <b-card-text>
+                                                <template v-if="associado.dataConsulta < D4 ">
+                                                    <b-alert variant="warning" show>
+                                                        <h3>Atenção!</h3>
+                                                        <span> </span>
+                                                        <span>A opção de pagamento por boleto bancário está disponível para compras de consultas com data a partir de {{limite}}, devido ao tempo de compensação desta forma de pagamento.</span>
+                                                    </b-alert>
+                                                </template>
+                                                <template v-else>
+                                                    <compra-boleto :compra="compra" @get-boleto="getBoleto"></compra-boleto>
+                                                </template>
+                                            </b-card-text>
+                                        </b-tab>
+                                        <!-- <b-tab v-if="valeCompra" id="pagamentoCartao" active> -->
+                                        <b-tab id="pagamentoCartao">
+                                            <template slot="title">
+                                                <h5> <i class="far fa-ticket-alt"></i> Vale Compra</h5>
+                                            </template>
+                                            <vale-compra :compra="compra"></vale-compra>
+                                        </b-tab>
+                                    </b-tabs>
+                                </b-card>
+
+
+                                <!-- <b-row class=" mt-2">
+                                    <b-col cols="6">
+                                        <b-button  block variant="success" @click="tipoCompra = 'cartao'">
+                                            <h5> <i class="far fa-credit-card fa-fw"></i> Cartão de Crédito</h5>
+                                        </b-button>
+                                    </b-col>
+                                    <b-col cols="6">
+                                        <b-button block variant="success" @click="tipoCompra = 'boleto'">
+                                            <h5> <i class="far fa-barcode"></i> Boleto</h5>
+                                        </b-button>
+                                    </b-col>
+
+                                </b-row> -->
+                                
+                                    <b-row v-if="tipoCompra === 'cartao'">
+                                        <b-col>
+                                                
+                                            <compra-cartao v-on:pagar-cartao="pagarCartao">
+        
+                                            </compra-cartao>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row v-if="tipoCompra === 'boleto'" class="container-boleto" >
+                                        <b-col>
+                                                <div class="text-center" v-if="boleto">
+                                                    <h3>Boleto gerado com sucesso <i class="far fa-check fa-fw"></i></h3>
+                                                    <h5>Verique o envio do boleto em seu e-mail!</h5>
+                                                </div>
+                                                <div v-else class="text-center">
+                                                    <h3>
+                                                        O boleto está sendo gerado... <i class="far fa-hourglass-half fa-fw"></i>
+                                                    </h3>
+                                                </div>
+                                                <compra-boleto :compra="compra" @get-boleto="getBoleto"></compra-boleto>
+                                        </b-col>
+                                    </b-row>
+
+                                </div>
+                                <div v-if="sucessoPagamento">
+                                    <b-button   type="button" aria-label="Add" 
+                                        class="btn btn-success btn-sm col-12" 
+                                        v-on:click="voltarIndex()"
+                                        style="margin-top: 20px;">
+                                        Agendar outra consulta
+                                    </b-button>
+                                    
+                                </div>
+                            </b-card-body>
+                        </b-card>
+                    </b-col>
+                </b-row>
+        </b-container>
+    </div>
+    <footer id="rodape" class="">
+        <footer-cm></footer-cm>
+    </footer>
+
+ 
+
+    <script src="../resources/js/utils.js"></script>
+    <script src="../resources/js/loaderContent.js"></script>
+    <script src="../resources/js/libs/vue.min.js"></script>
+    <script src="../resources/js/libs/bootstrap-vue.js"></script>
+    <script src="../resources/js/libs/axios.min.js"></script>    
+    <script src="../resources/js/libs/httpVueLoader.js"></script>
+    <script src="../resources/js/libs/rxp-hpp.js"></script>
+    <script src="../resources/js/libs/vue-the-mask.js"></script>
+    <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    <script src="../resources/js/compra.js"></script>
+    <script>
+        //Vue.config.devtools = true
+        //window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = compraVue.constructor;
+    </script> 
+
+</body>
+
+</html>

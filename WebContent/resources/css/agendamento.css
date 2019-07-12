@@ -1,0 +1,282 @@
+@import 'geral.css';
+
+@import 'ie10-viewport-bug-workaround.css';
+
+@import 'sticky-footer-navbar.css';
+
+@import 'pagamento.css';
+
+@import 'redesSociais.css';
+
+@import 'iconeSistemas.css';
+
+/*Personaliza��o do bootstrap*/
+.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+/***/
+#logo_Cliquemedicos_nav {
+	height: 50px;
+}
+
+#appAssociados .container {
+	padding-top: 20px;
+}
+
+#resumoConsulta {
+	padding: 0 15px;
+    width: 100%;
+    color: #1d6981;
+	text-align: center;
+}
+
+.tituloResultado{
+	font-size: 2rem;
+	line-height: 1.20;
+}
+#localidadeResultado {
+	padding: 0 15px 10px;	
+}
+.dataResultado h5 {
+    font-size: 1.5rem;
+}
+.datas {
+	text-align: left;
+}
+.datas h5{
+	font-size: 1.4rem;	
+	color: #1d6981;
+	font-weight: 600;
+}
+.dataResultado{
+	width: 100%;
+
+}
+.dataResultado button {
+	border:none !important;
+	background: #FFF !important;
+	color:#1d6981 !important;
+}
+#dataPesquisa{
+width: 100%;
+margin: 0;
+padding: 0;
+}
+
+#dataPesquisa:hover {
+	color:#1d6981;
+	background-color: none;
+    border-color: none;
+}
+.card-body{
+	text-align: left;
+    color: #1d6981;
+    padding: 5px;
+}
+.horario {
+    background: #E5F2F3;
+    border: none;
+    padding: 10px 5px;
+    margin: 2px;
+    border-radius: 2px;
+    width: 120px;
+}
+.horarioChegada{
+	background: #E5F2F3;
+    border: none;
+    padding: 10px;
+    margin: 2px;
+    border-radius: 2px;
+}
+.horario:hover{
+    background-color: #00898f;
+    border-color: #1d6981;
+}
+.horario:active{
+    background-color: #00898f;
+    border-color: #1d6981;
+}
+#scrollHorarios {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+#scrollHorarios .card {
+	display: inline-block;
+}
+#scrollHorarios {
+	-webkit-overflow-scrolling: touch;
+  }
+/********/
+.banner {
+	background: url(../images/setaBackground.png) top left no-repeat;
+	padding: 1rem 1rem 2rem;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #e9ecef;
+	border-radius: .3rem;
+	background-size: 21%;
+}
+/*****/
+#conteudo {
+	background: url(../images/detalhe_caracteristicas.png) top right;
+	background-repeat: no-repeat;
+	margin-top: 0px;
+	background-size: 25%;
+}
+
+.caracteristicas {
+	min-height: 150px;
+}
+
+.dados {
+	min-height: 350px;
+}
+
+.banner .form-control {
+	padding: 5px;
+	font-size: 16px;
+	border-color: #BBD2D9;
+	border-style: solid;
+	border-width: 3px;
+	margin: 2px 0px;
+}
+
+.obrigatorio {
+	border-color: rgba(29, 105, 129, 0.6) !important;
+}
+
+.busca {
+	z-index: 999;
+}
+
+.imgBanner {
+	width: 600px;
+}
+
+.busca h2 {
+	color: #008288;
+	font-weight: 300;
+	text-align: right;
+	line-height: 2rem;
+}
+
+.card h5 {
+	text-align: left;
+}
+
+.footer {
+	background: url(../images/backgroundFooter.png) bottom left;
+	background-color: #BBD2D9 !important;
+	background-repeat: no-repeat;
+	background-size: auto;
+	bottom: 0px;
+	background-position-x: -140px;
+}
+
+#menuInferior h4 {
+	font-size: 1.0rem;
+	color: #008288;
+	text-align: left;
+	margin: 15px 0 5px;
+}
+
+.mapaSite {
+	text-align: left;
+}
+
+.mapaSite ul>li {
+	list-style-type: none;
+	margin: 5px 0;
+}
+
+#menuInferior h3 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #008288;
+	text-align: left;
+	margin: 20px 0 0;
+}
+.btn-dataAtual{
+	color: #FFF;
+    background-color: #00898f;
+    border-color: #1d6981;
+    height: 30px;
+}
+.btn-datas{
+    background-color: #00898f;
+    border-color: #1d6981;
+    font-size: 0.7rem;
+    line-height: 1.0;
+}
+#localidadeResultado h3{
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+#localidadeResultado span{
+	font-size: 1.0rem;
+	font-weight: 200;
+}
+.setas{
+	font-size: 2rem;
+    line-height: 1rem;
+}
+
+
+
+@media ( max-width : 768px) {
+	.imgBanner {
+		opacity: 0.1;
+		position: absolute;
+		left: -150px;
+		z-index: 1;
+	}
+}
+
+
+
+@media ( max-width : 576px) {
+	.navbar-collapse {
+		background: url(../images/detalhe_caracteristicas.png) #008288 right top/25%
+			no-repeat;
+		margin: 10px -16px -8px;
+		padding: 0px;
+	}
+	.navbar-nav .nav-link {
+		font-size: 1.7rem;
+		text-align: left;
+		padding-left: 20px;
+		line-height: 2rem;
+		font-weight: 800;
+	}
+	.banner {
+		background: url(../images/setaBackground.png) top left no-repeat;
+		padding: 2rem 1rem;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		background-color: #e9ecef;
+		border-radius: .3rem;
+		background-size: 200%;
+	}
+	.imgBanner {
+		opacity: 0.1;
+		position: absolute;
+		left: -260px;
+		z-index: 1;
+	}
+	.caracteristicas h2 {
+		font-size: 2rem;
+		color: #008288;
+		font-weight: 600;
+		text-align: center;
+	}
+	.caracteristicas p {
+		font-size: 1.5rem;
+		color: #008288;
+		font-weight: normal;
+	}
+	.mapaSite ul>li {
+		list-style-type: none;
+		margin: 10px 0;
+	}
+}

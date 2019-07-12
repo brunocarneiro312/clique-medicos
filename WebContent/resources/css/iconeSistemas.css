@@ -1,0 +1,66 @@
+.sistema {
+    background-image: url(../images/icone-sistema.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sistema-agenda-icon {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -5px;
+}
+
+.sistema-agenda-icon-white {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -45px;
+}
+
+.sistema-associado-icon {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -85px;
+}
+
+.sistema-associado-icon-white {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -125px;
+}
+
+.sistema-carrinho-icon {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -165px;
+}
+
+.sistema-carrinho-icon-white {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -205px;
+}
+
+.sistema-clinica-icon {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -245px;
+}
+
+.sistema-clinica-icon-white {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -285px;
+}
+
+.sistemas-especialidade-icon {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -325px;
+}
+
+.sistemas-especialidade-icon-white {
+    width: 30px;
+    height: 30px;
+    background-position: -5px -365px;
+}
+

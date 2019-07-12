@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Clique Médicos</title>
+	<!-- Meta Tags SEO-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<!-- Principal CSS do Bootstrap -->
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#BBD2D9">
+	<!--CSS-->
+
+	<link href="resources/css/bootstrap.css" rel="stylesheet">
+	<link href="resources/css/all.css" rel="stylesheet">
+	<link href="resources/css/bootstrap-vue.css" rel="stylesheet">
+	<link href="resources/css/associados.css" rel="stylesheet">
+
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CliqueMédicos">
+	<!---->
+	<meta name="msapplication-TileImage" content="resources/images/favico/mstile-150x150.png">
+	<meta name="msapplication-TileColor" content="#BBD2D9">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Imagens favico-->
+	<link rel="apple-touch-icon" href="resources/images/favico/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favico/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favico/favicon-16x16.png">
+	<!---->
+	<style>
+	.calendarioAssociado{
+		max-width:300px;
+	}
+	.vc-popover-caret {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 12px;
+		height: 12px;
+		border-top: inherit;
+		border-left: inherit;
+		background: inherit;
+		z-index: -1;
+	}
+	.tooltip-inner {
+		padding: 0.25rem 0.5rem;
+		color: #BBD2D9;
+		text-align: center;
+		background-color: #FFF;
+		border-radius: 0.25rem;
+		max-width: 100% !important;
+	}
+.popover {
+
+	max-width: 100% !important;
+}
+.bg-cliqueMedicos {
+	background-color: #BBD2D9 !important;
+}
+#logo_Cliquemedicos_nav{
+    height: 55px;
+    margin-top: -5px;
+}
+#cardFiltro a {
+	text-align: left;
+}
+#cardFiltro .btn-info {
+    color: #17a2b8 !important;
+    background: none !important;
+    border: none !important;
+}
+
+.collapsed > #headerFiltro .when-info-opened,:not(.collapsed) >  #headerFiltro .when-info-closed {
+    display: none;
+}
+.collapsed > #headerFiltro .when-info-closed,:not(.collapsed) > #headerFiltro .when-info-opened {
+    display: block;
+}
+
+.collapsed > #headerFiltro .when-dados-opened,:not(.collapsed) > #headerFiltro .when-dados-closed {
+    display: none;
+}
+.collapsed > #headerFiltro .when-dados-closed,:not(.collapsed) > #headerFiltro .when-dados-opened {
+    display: block;
+}
+	</style>
+</head>
+
+<body class="text-center">
+    <!-- -- -->
+    <div id="menuSuperior">
+		<header-cm
+			caminho-relativo=""
+			pagina-privada="false">
+		</header-cm>
+	</div>
+	<!-- -->
+	<section id="appAssociados" v-cloak>
+		<b-container class="">
+			<b-row>
+				<div id="resumoConsulta">
+					<div v-if="numeroAssociadosTotal != 0">
+						<h2 class="tituloResultado">
+							<small>Temos {{numeroAssociadosTotal}} clínicas especialistas em</small>
+							<strong>{{filtro.servico.descricao}}</strong>
+						</h2>
+					</div>
+					<div v-else>
+						<h2 class="tituloResultado">
+							<small>Procedimento:</small>
+							<strong>{{filtro.servico.descricao}}</strong>
+						</h2>
+					</div>
+					<h2 class="tituloResultado"><small>Valor da consulta é </small><strong>R${{precoConsulta}},00</strong></h2>
+				</div>
+			</b-row>
+
+			<hr style="margin: 5px 0px;">
+			<b-row id="cardFiltro">
+					<b-col cols="12">
+					<b-card no-body class="mb-1">
+						<b-card-header header-tag="header" class="p-1" role="tab">
+							<b-button block href="#" v-b-toggle.accordion-1 variant="info">
+								<div id="headerFiltro" class="d-flex align-items-center">									
+									<span class="mr-2"><i class="far fa-filter mr-2"></i> </span>
+									<h5 class="mb-1">Filtro </h5>
+									<div id="iconeFiltro" class="ml-auto" style="text-align: left;">
+										<span class="when-info-opened"><i class="far fa-minus-square"></i></span>
+										<span class="when-info-closed"><i class="far fa-plus-square"></i></span> 
+									</div>
+								</div>
+							</b-button>						  
+						</b-card-header>
+						<b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+							<b-card-group>
+								<b-card>
+									<label for="nom_profissional" class="col-12"> Nome do profissional</label>
+									<b-form-input 	type="text"
+													maxlength="100" class="form-control col-12"
+													id="nom_profissional"
+													size="sm"
+													placeholder="Informe o profissional desejado"
+													type="text"
+													v-model="filtro.nomeProfissional"
+													@input="mudarFiltro(filtro,localidadesSelecionadas)">
+									</b-form-input>
+									<label for="localidade" class="col-12"> Localidade</label>
+									<b-form-select 	id="localidade"
+													v-model="localidadesSelecionadas"
+													:options="listaLocalidades"
+													text-field="descricao" value-field="id"
+													multiple
+													:select-size="3"
+													size="sm"
+													placeholder="Escolha a localidade"
+													class="form-control col-12">
+										<template slot="first">
+											<option :value="-1" disabled>Informe as localidades</option>
+										</template>
+									</b-form-select>
+								</b-card>
+							</b-card-group>
+						</b-collapse>
+					  </b-card>
+				</b-col>
+			</b-row>
+			<b-row id="localidadeResultado" v-if="!loadingAssociados">
+				<b-col cols="12">
+					<div v-if="numeroAssociadosEncontrados === 0">
+						<h3> Não encontramos médicos disponíveis nessa data.</h3>
+					</div>
+					<div v-else>
+						<h3>
+							Encontramos {{numeroAssociadosEncontrados}}
+							<span v-if="numeroAssociadosEncontrados > 1 "> médicos disponíveis.</span>
+							<span v-else> médico disponível.</span> &nbsp;
+						</h3>
+					</div>
+				</b-col>
+				<b-col cols="12">
+					<div v-if="filtro.localidades.length > 0" >
+						<span v-if="filtro.localidades.length > 1">
+							Localidades:&nbsp;
+						</span>
+						<span v-else>
+							Localidade:  &nbsp;
+						</span>
+						<span v-for="(option, index) in filtro.localidades">
+							{{option.descricao}}
+							<span v-if="index !== filtro.localidades.length - 1">,&nbsp;</span>
+						</span>
+					</div>
+					<div v-else>
+						<span>Em todas as localidades.&nbsp;</span>
+					</div>
+				</b-col>
+			</b-row>
+			<b-row v-if="loadingAssociados">
+				<b-col cols="12">
+					<h3>Aguarde.</h3>
+					<span>Estamos procurando médicos disponíveis para sua consulta.</span>
+				</b-col>
+			</b-row>
+			<div>
+				<div id="loaderAssociados">
+					<b-card no-body class="mb-1" v-if="associado.mostrarAssociado"
+						v-for="associado in resultadoAssociados"
+						v-bind:key="associado.credenciado">
+						<b-card-header header-tag="header" class="p-1" role="tab">
+							<b-button block href="#"
+								v-b-toggle="associado.credenciado"
+								variant="primary">
+								<div class="d-flex align-items-center">
+									<span class="mr-2">
+										<i v-if="associado.PessoaFJ=='F'"
+											class="sistema sistema-associado-icon-white"></i>
+										<i v-else class="sistema sistema-clinica-icon-white"></i>
+									</span>
+									<h5 class="mb-1"> {{associado.nomeCredenciado}}</h5>
+									<small class="ml-auto">{{associado.bairrodesc}} </small>
+								</div>
+								<div style="text-align: left;">
+									<small>{{associado.nomeCredenciado}}</small>
+								</div>
+							</b-button>
+						</b-card-header>
+						<b-collapse
+							:id="associado.credenciado"
+							visible
+							accordion="associado.credenciado"
+							role="tabpanel">
+							<b-card-body style="margin-top: 10px;">
+								<strong class="text-uppercase">{{associado.nomeCredenciado}}</strong><br />
+								{{associado.endereco}},	<br />
+								{{associado.bairrodesc}}
+								<b-card class="justify-content-center">
+									<button @click="agendarConsulta(associado, dataAtual)"
+										class="horarioChegada">
+                                        Compre Agora!
+									</button>
+								</b-card>
+							</b-card-body>
+						</b-collapse>
+					</b-card>
+				</div>
+			</div>
+		</b-container>
+	</section>
+	<!-- -->
+	<footer id="rodape" class="">
+		<footer-cm></footer-cm>
+	</footer>
+
+	<script src="resources/js/utils.js"></script>
+	<script src="resources/js/loader.js"></script>
+	<script src="resources/js/libs/vue.js"></script>
+	<script src="resources/js/libs/bootstrap-vue.js"></script>
+	<script src="resources/js/libs/axios.min.js"></script>
+    <script src="resources/js/libs/httpVueLoader.js"></script>
+	<script src="resources/js/associados-sem-agenda.js"></script>
+</body>
+
+</html>
